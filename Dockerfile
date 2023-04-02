@@ -1,16 +1,25 @@
-FROM node:alpine3.11
-MAINTAINER <GROUP_NAME_HERE>
+ARG PYTHON_VERSION=3.10-slim-buster
 
-# Change working directory
-WORKDIR /usr/src/app
+FROM python:${PYTHON_VERSION}
 
-# Install App Dependencies
-COPY package*.json ./
-RUN npm install
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# Copy App Source
-COPY . .
-#TODO Run any build scripts here
+RUN mkdir -p /code
 
-EXPOSE 80
-CMD [ "npm", "start" ]
+WORKDIR /code
+
+COPY requirements.txt /tmp/requirements.txt
+
+RUN set -ex && \
+    pip install --upgrade pip && \
+    pip install -r /tmp/requirements.txt && \
+    rm -rf /root/.cache/
+
+COPY . /code/
+
+# RUN python manage.py collectstatic --noinput
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", ":8000", "--workers", "1", "skieasy.wsgi"]
