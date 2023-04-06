@@ -1,0 +1,30 @@
+name: Lint Code Base
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+jobs:
+  run-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: ricardochaves/python-lint@v1.4.0
+        with:
+          python-root-list: "."
+          use-pycodestyle: true
+          use-isort: true
+          use-pylint: false
+          use-flake8: false
+          use-black: false
+          use-mypy: false
+          extra-pylint-options: ""
+          extra-pycodestyle-options: ""
+          extra-flake8-options: ""
+          extra-black-options: ""
+          extra-mypy-options: ""
+          extra-isort-options: ""
