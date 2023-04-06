@@ -18,6 +18,6 @@ jobs:
         uses: sunnysid3up/python-linter@master
         with:
           strict: "medium"
-          mypy-options: "--exclude ."
+          mypy-options: "--exclude './'"
           django: true
           
