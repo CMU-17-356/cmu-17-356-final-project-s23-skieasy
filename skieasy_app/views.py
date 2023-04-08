@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 
 def homePageView(request):
-    return HttpResponse("Hello From Django!")
+    return HttpResponse("<body><h1>Hello From SkiEasy!</h1></body>")
