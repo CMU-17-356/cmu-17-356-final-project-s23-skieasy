@@ -1,4 +1,4 @@
-# fly.toml file generated for skieasy on 2023-04-02T16:13:36-04:00
+# fly.toml file generated for skieasy on 2023-04-09T09:28:53-04:00
 
 app = "skieasy"
 kill_signal = "SIGINT"
