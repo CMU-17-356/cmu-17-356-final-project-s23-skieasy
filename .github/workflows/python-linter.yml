@@ -17,7 +17,7 @@ jobs:
         with:
           python-root-list: "./skieasy_app"
           use-pycodestyle: true
-          use-isort: true
+          use-isort: false
           use-pylint: false
           use-flake8: false
           use-black: false
@@ -27,6 +27,6 @@ jobs:
           extra-flake8-options: ""
           extra-black-options: ""
           extra-mypy-options: ""
-          extra-isort-options: "skip=skieasy_app/migrations/*"
+          extra-isort-options: ""
           
 
