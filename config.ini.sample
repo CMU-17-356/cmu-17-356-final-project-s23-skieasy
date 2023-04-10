@@ -1,0 +1,12 @@
+[Django]
+Secret: <django-secret-goes-here>
+
+
+[GoogleOAuth2]
+client_id: <google-oauth2-key>
+client_secret: <google-oauth2-secret>
+
+
+[SkiEasy]
+title=SkiEasy
+users=@andrew.cmu.edu

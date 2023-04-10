@@ -5,6 +5,12 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+env:
+  CLIENTID: ${{ secrets.CLIENTID }}
+  CLIENTSECRET: ${{ secrets.CLIENTSECRET }}
+  SECRET: ${{ secrets.SECRET }}
+  TITLE: ${{ secrets.TITLE }}
+  USERS: ${{ secrets.USERS }}
 
 jobs:
   build:
