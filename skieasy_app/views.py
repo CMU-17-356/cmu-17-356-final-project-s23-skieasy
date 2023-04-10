@@ -1,8 +1,9 @@
+from skieasy_app.forms import ProfileForm
+from skieasy_app.models import Profile
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from skieasy_app.forms import ProfileForm
-from skieasy_app.models import Profile
+
 
 
 def homePageView(request):

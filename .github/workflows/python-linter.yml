@@ -27,6 +27,6 @@ jobs:
           extra-flake8-options: ""
           extra-black-options: ""
           extra-mypy-options: ""
-          extra-isort-options: ""
+          extra-isort-options: "--exclude=skieasy_app/migrations/*"
           
 

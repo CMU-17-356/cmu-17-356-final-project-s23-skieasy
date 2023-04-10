@@ -1,5 +1,5 @@
-from django import forms
 from skieasy_app.models import Profile
+from django import forms
 
 
 class ProfileForm(forms.ModelForm):
