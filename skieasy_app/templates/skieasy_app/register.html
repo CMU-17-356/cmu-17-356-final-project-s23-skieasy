@@ -1,0 +1,20 @@
+{% extends "skieasy_app/base.html" %}
+
+{% block content %}
+    <div id="profile-form">
+        <form method="post" action="{% url 'register' %}">
+            <table class="profile-register-form">
+                {{ form }}
+            </table>
+            <button type="submit">Register</button>
+            {% csrf_token %}
+        </form>
+    
+        {% for error in form.non_field_errors %}
+            <p class="error">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+
+{% endblock %}
