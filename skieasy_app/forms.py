@@ -8,7 +8,7 @@ class ProfileForm(forms.ModelForm):
         exclude = (
             'user',
         )
-        labels={
+        labels = {
             'height': 'Height (ft):',
             'bootSize': 'Boot Size:',
             'userType': 'User Type:',
