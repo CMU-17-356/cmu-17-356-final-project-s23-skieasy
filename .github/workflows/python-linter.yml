@@ -23,8 +23,10 @@ jobs:
           use-black: false
           use-mypy: false
           extra-pylint-options: ""
-          extra-pycodestyle-options: ""
+          extra-pycodestyle-options: "--exclude='/migration*'"
           extra-flake8-options: ""
           extra-black-options: ""
           extra-mypy-options: ""
           extra-isort-options: ""
+          
+
