@@ -5,7 +5,6 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 
-
 def homePageView(request):
     return HttpResponse("<body><h1>Hello From SkiEasy!</h1></body>")
 
