@@ -14,6 +14,8 @@ from pathlib import Path
 from configparser import ConfigParser
 import dj_database_url
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +28,7 @@ CONFIG.read(BASE_DIR / "config.ini")
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = CONFIG.get("Django", "Secret")
+SECRET_KEY = os.environ.get("SECRET", "")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -151,18 +153,18 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = CONFIG.get("GoogleOAuth2", "client_id")
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = CONFIG.get("GoogleOAuth2", "client_secret")
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get("CLIENTID", "")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get("CLIENTSECRET", "")
 SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {'prompt': 'select_account'}
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['fullname', 'picture']
 
-SKIEASY_TITLE = CONFIG.get("SkiEasy", "title")
-SKIEASY_USERS = CONFIG.get("SkiEasy", "users")
+SKIEASY_TITLE = os.environ.get("TITLE", "")
+SKIEASY_USERS = os.environ.get("USERS", "")
 
 # Used by the @login_required decorator to redirect to the login action
 LOGIN_URL = '/oauth/login/google-oauth2/'
 
-# Default URL to redirect to after a user logs in.
+# Default URL to redirect to after a user logs python manage.py makemigrations skieasy_appin.
 LOGIN_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL='/register'

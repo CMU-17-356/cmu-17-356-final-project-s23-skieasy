@@ -5,6 +5,12 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+env:
+  CLIENTID: ${{ secrets.CLIENTID }}
+  CLIENTSECRET: ${{ secrets.CLIENTSECRET }}
+  SECRET: ${{ secrets.SECRET }}
+  TITLE: ${{ secrets.TITLE }}
+  USERS: ${{ secrets.USERS }}
 
 jobs:
   build:
@@ -25,6 +31,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    # - name: Run Tests
-    #   run: |
-    #     python manage.py test
+    - name: Run Tests
+      run: |
+        python manage.py test
