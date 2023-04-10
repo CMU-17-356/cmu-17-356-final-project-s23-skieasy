@@ -23,7 +23,7 @@ jobs:
           use-black: false
           use-mypy: false
           extra-pylint-options: ""
-          extra-pycodestyle-options: "--exclude='./skieasy_app/migrations/*'"
+          extra-pycodestyle-options: "--exclude=skieasy_app/migrations/*"
           extra-flake8-options: ""
           extra-black-options: ""
           extra-mypy-options: ""
