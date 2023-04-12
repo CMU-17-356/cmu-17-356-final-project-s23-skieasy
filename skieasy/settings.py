@@ -168,3 +168,5 @@ LOGIN_URL = '/oauth/login/google-oauth2/'
 LOGIN_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL='/register'
+
+MEDIA_ROOT = BASE_DIR / 'skieasy_app/images'
