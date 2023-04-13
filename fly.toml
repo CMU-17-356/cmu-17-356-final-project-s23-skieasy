@@ -1,10 +1,13 @@
-# fly.toml file generated for skieasy on 2023-04-09T09:28:53-04:00
+# fly.toml file generated for skieasy on 2023-04-13T13:43:52-04:00
 
 app = "skieasy"
 kill_signal = "SIGINT"
 kill_timeout = 5
 primary_region = "iad"
 processes = []
+
+[deploy]
+  release_command = "python manage.py migrate"
 
 [env]
   PORT = "8000"
