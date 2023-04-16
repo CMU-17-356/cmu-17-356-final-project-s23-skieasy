@@ -1,5 +1,5 @@
 from skieasy_app.forms import ProfileForm
-from skieasy_app.models import Profile
+from skieasy_app.models import Profile, Equipment, EquipmentImages, EquipmentListing
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -45,3 +45,7 @@ def manage(request):
 @login_required
 def create(request):
     return render(request, 'skieasy_app/create.html', {})
+
+@login_required
+def listing(request):
+    return render(request, 'skieasy_app/listing.html', {})
