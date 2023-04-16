@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
+from .forms import EquipmentForm
+
 
 def welcome(request):
     return render(request, 'skieasy_app/welcome.html', {})
@@ -88,4 +90,9 @@ def manage(request):
 
 @login_required
 def create(request):
-    return render(request, 'skieasy_app/create.html', {})
+    form = EquipmentForm()
+
+    page = {
+        "form": form
+    }
+    return render(request, 'skieasy_app/create.html', page)

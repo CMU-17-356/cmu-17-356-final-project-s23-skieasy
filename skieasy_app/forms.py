@@ -1,4 +1,4 @@
-from skieasy_app.models import Profile
+from skieasy_app.models import Profile, Equipment
 from django import forms
 
 
@@ -13,3 +13,11 @@ class ProfileForm(forms.ModelForm):
             'bootSize': 'Boot Size:',
             'userType': 'User Type:',
         }
+
+class EquipmentForm(forms.ModelForm):
+    class Meta:
+        model = Equipment
+        exclude = (
+            'profileId',
+        )
+
