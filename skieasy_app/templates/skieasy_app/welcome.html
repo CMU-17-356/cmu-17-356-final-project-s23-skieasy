@@ -1,0 +1,19 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <title>SkiEasy</title>
+	<meta charset="UTF-8">
+    {% load static %}
+	<link rel="stylesheet" href="{% static 'skieasy_app/welcome.css' %}" type="text/css">
+    <link rel="icon" type="image/favicon.ico" href="{% static 'skieasy_app/icon.png' %}">
+</head>
+<body>
+    <div id="title">
+        <h1>Welcome to SkiEasy</h1>
+        <subtitle>Ski anytime, anywhere without having to bring your own gear!</subtitle><br/>
+        <img src="../../static/skieasy_app/icon.png" width="33%"/><br/>
+        <h3><a href="{% url 'register' %}">Register</a></h3>
+    </div>
+</body>
+</html>
