@@ -1,12 +1,26 @@
-{% extends "skieasy_app/header.html" %}
+<!doctype html>
 
-{% block content %}
+<html lang="en">
+<head>
+    <title>SkiEasy</title>
+	<meta charset="UTF-8">
+    {% load static %}
+	<link rel="stylesheet" href="{% static 'skieasy_app/register.css' %}" type="text/css">
+    <link rel="icon" type="image/favicon.ico" href="{% static 'skieasy_app/icon.png' %}">
+</head>
+<body>
+    <div id="center">
+        <img src="../../static/skieasy_app/icon.png" width="33%"/><br/>
+        <h1>Register with SkiEasy!</h1>
+    </div>
     <div id="profile-form">
         <form method="post" action="{% url 'home' %}">
             <table class="profile-register-form">
                 {{ form }}
             </table>
-            <button type="submit">Register</button>
+            <div id="center">
+                <button type="submit">Register</button>
+            </div>
             {% csrf_token %}
         </form>
 
@@ -16,5 +30,5 @@
             </p>
         {% endfor %}
     </div>
-
-{% endblock %}
+</body>
+</html>
