@@ -9,7 +9,9 @@ def homePageView(request):
     return HttpResponse("<body><h1>Hello From SkiEasy!</h1></body>")
 
 
-@login_required
+def welcome(request):
+    return render(request, 'skieasy_app/welcome.html', {})
+
 def home(request):
     return render(request, 'skieasy_app/home.html', {})
 
