@@ -1,40 +1,55 @@
 {% extends "skieasy_app/header.html" %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'skieasy_app/listing.css' %}" type="text/css">
 
 {% block content %}
-<h2>Hello there</h2>
-<div class="listing">
-    <div class="listing-title">
-        <h2>{{ listing.title }}</h2>
+<link rel="stylesheet" href="{% static 'skieasy_app/listing.css' %}" type="text/css">
+<div class="item-listing">
+    <h1 class="listing-title">{{ title }}</h1>
+    <div class="listing-content">
+      <div class="listing-image">
+        <img id="main-image" src="{{ image }}" alt="Listing Image">
+      </div>
+      <div class="listing-details">
+        <div class="listing-price">
+          <h2>Price:</h2>
+          <p>${{ price }}</p>
+        </div>
+        <div class="listing-quantity">
+            <h2>Quantity:</h2>
+            <p>{{ quantity }}</p>
+          </div>
+        <div class="listing-button">
+            <a href="#" class="btn">Rent Now</a>
+        </div>
+      </div>
+
     </div>
-    <div class="listing-image">
-        <img src="{{ listing.image }}" alt="Listing Image" width="100%">
+    <div class="listing-alternate-images">
+        <div class="image-tiles">
+          <img id="alt-1" src="https://picsum.photos/id/23/400/400" alt="Alternate Image 1" onclick="changeMainImage('https://picsum.photos/id/23/400/400')">
+          <img id="alt-2" src="https://picsum.photos/id/27/400/400" alt="Alternate Image 2" onclick="changeMainImage('https://picsum.photos/id/27/400/400')">
+          <img id="alt-3" src="https://picsum.photos/id/37/400/400" alt="Alternate Image 3" onclick="changeMainImage('https://picsum.photos/id/37/400/400')">
+          <img id="alt-4" src="https://picsum.photos/id/3/400/400" alt="Alternate Image 3" onclick="changeMainImage('https://picsum.photos/id/3/400/400')">
+
+        </div>
     </div>
     <div class="listing-description">
-        <p>{{ listing.description }}</p>
+      <h2>Description:</h2>
+      <p>{{ description }}</p>
     </div>
-    <div class="listing-info">
-        <p>Price: ${{ listing.price }}</p>
-        <p>Quantity: {{ listing.quantity }}</p>
-    </div>
+
+</div>
+
+<script>
+// Function to change the main product image
+function changeMainImage(imageSrc) {
+    document.getElementById('main-image').src = imageSrc;
+}
+</script>
+
 {% endblock %}
 
 
 
-<!-- {% for listing in listings %}
-    <div class="listing">
-        <div class="listing-image">
-            <img src="{{ listing.image.url }}" alt="Listing Image" width="100%">
-        </div>
-        <div class="listing-info">
-            <h2>{{ listing.title }}</h2>
-            <p>{{ listing.description }}</p>
-            <p>Price: ${{ listing.price }}</p>
-            <p>Location: {{ listing.location }}</p>
-            <p>Available: {{ listing.available }}</p>
-            <p>Owner: {{ listing.owner }}</p>
-        </div>
-    </div>
-{% endfor %} -->
+
 
