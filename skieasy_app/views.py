@@ -36,6 +36,7 @@ def register(request):
 
     return render(request, 'skieasy_app/home.html', {})
 
+
 @login_required
 def manage(request):
     return render(request, 'skieasy_app/manage.html', {})
