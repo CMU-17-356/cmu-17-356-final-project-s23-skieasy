@@ -15,6 +15,8 @@ from configparser import ConfigParser
 import dj_database_url
 import os
 from dotenv import load_dotenv
+
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'skieasy_app',
     'debug_toolbar',
@@ -52,6 +55,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -168,3 +172,9 @@ LOGIN_URL = '/oauth/login/google-oauth2/'
 LOGIN_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL='/register'
+
+MEDIA_ROOT = BASE_DIR / 'skieasy_app/images'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
