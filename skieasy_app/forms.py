@@ -14,10 +14,10 @@ class ProfileForm(forms.ModelForm):
             'userType': 'User Type:',
         }
 
+
 class EquipmentForm(forms.ModelForm):
     class Meta:
         model = Equipment
         exclude = (
             'profileId',
         )
-
