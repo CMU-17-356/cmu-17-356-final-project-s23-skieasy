@@ -19,9 +19,11 @@ from skieasy_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home', views.home, name='home'),
     path('', views.welcome, name='welcome'),
     path('register', views.register, name='register'),
+    path('home', views.home, name='home'),
+    path('manage', views.manage, name='manage'),
+    path('create', views.create, name='create'),
     path('__debug__/', include('debug_toolbar.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),
 ]

@@ -5,13 +5,11 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 
-def homePageView(request):
-    return HttpResponse("<body><h1>Hello From SkiEasy!</h1></body>")
-
-
 def welcome(request):
     return render(request, 'skieasy_app/welcome.html', {})
 
+
+@login_required
 def home(request):
     return render(request, 'skieasy_app/home.html', {})
 
@@ -37,3 +35,12 @@ def register(request):
     new_profile.save()
 
     return render(request, 'skieasy_app/home.html', {})
+
+@login_required
+def manage(request):
+    return render(request, 'skieasy_app/manage.html', {})
+
+
+@login_required
+def create(request):
+    return render(request, 'skieasy_app/create.html', {})
