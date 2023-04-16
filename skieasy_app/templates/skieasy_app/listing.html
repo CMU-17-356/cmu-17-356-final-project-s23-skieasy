@@ -1,0 +1,40 @@
+{% extends "skieasy_app/header.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'skieasy_app/listing.css' %}" type="text/css">
+
+{% block content %}
+<h2>Hello there</h2>
+<div class="listing">
+    <div class="listing-title">
+        <h2>{{ listing.title }}</h2>
+    </div>
+    <div class="listing-image">
+        <img src="{{ listing.image }}" alt="Listing Image" width="100%">
+    </div>
+    <div class="listing-description">
+        <p>{{ listing.description }}</p>
+    </div>
+    <div class="listing-info">
+        <p>Price: ${{ listing.price }}</p>
+        <p>Quantity: {{ listing.quantity }}</p>
+    </div>
+{% endblock %}
+
+
+
+<!-- {% for listing in listings %}
+    <div class="listing">
+        <div class="listing-image">
+            <img src="{{ listing.image.url }}" alt="Listing Image" width="100%">
+        </div>
+        <div class="listing-info">
+            <h2>{{ listing.title }}</h2>
+            <p>{{ listing.description }}</p>
+            <p>Price: ${{ listing.price }}</p>
+            <p>Location: {{ listing.location }}</p>
+            <p>Available: {{ listing.available }}</p>
+            <p>Owner: {{ listing.owner }}</p>
+        </div>
+    </div>
+{% endfor %} -->
+
