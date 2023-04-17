@@ -1,3 +1,20 @@
-{% extends "skieasy_app/header.html" %}
+{% extends "skieasy_app/base.html" %}
 
-
+{% block content %}
+    <div class="row">
+        <div class="col">
+            {% for listing in listings %}
+                <div class="card">
+                    <a href="details/{{ listing.equipmentListingId }}"><img src={{listing.image}} width="10%"/></a>
+                    <br/>
+                    <b>{{listing.title}}</b>
+                    <br/>
+                    From {{listing.startDate}} to {{listing.endDate}}
+                    <br/>
+                    ${{listing.price}}
+                    <hr/>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

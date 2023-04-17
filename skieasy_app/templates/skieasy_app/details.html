@@ -1,0 +1,10 @@
+{% extends "skieasy_app/base.html" %}
+
+{% block content %}
+    <div id="details">
+        <h1>{{title}}</h1>
+        <img src={{image}} width="25%" />
+        <h3>${{price}}</h3>
+        <h4>{{startDate}} to {{endDate}}</h4>
+    </div>
+{% endblock %}

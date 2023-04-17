@@ -5,13 +5,60 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.template import loader
 
+from .forms import EquipmentForm
+
+
 def welcome(request):
     return render(request, 'skieasy_app/welcome.html', {})
 
 
 @login_required
 def home(request):
-    return render(request, 'skieasy_app/home.html', {})
+
+    one = {
+        "equipmentListingId": 1,
+        "image": "https://shorturl.at/uMV57",
+        "title": "Atomic Bend 90",
+        "price": 9.99,
+        "startDate": "Jan 19, 2023",
+        "endDate": "Jan 29, 2023",
+    }
+    two = {
+        "equipmentListingId": 2,
+        "image": "https://shorturl.at/BNPTZ",
+        "title": "Nordica Enforcers",
+        "price": 19.99,
+        "startDate": "Jan 18, 2023",
+        "endDate": "Jan 25, 2023",
+    }
+    three = {
+        "equipmentListingId": 3,
+        "image": "https://shorturl.at/bmxZ2",
+        "title": "Armeda",
+        "price": 19.99,
+        "startDate": "Jan 5, 2023",
+        "endDate": "Jan 22, 2023",
+    }
+    listings = [one, two, three]
+
+    page = {
+        "listings": listings
+    }
+    return render(request, 'skieasy_app/home.html', page)
+
+
+@login_required
+def details(request, id):
+    # listing = Equipment.objects.get(id=equipmentListingId)
+    listing = {
+        "id": id,
+        "image": "https://shorturl.at/uMV57",
+        "title": "Atomic Bend 90",
+        "price": 9.99,
+        "startDate": "Jan 19, 2023",
+        "endDate": "Jan 29, 2023",
+    }
+    return render(request, 'skieasy_app/details.html', listing)
 
 
 @login_required
@@ -44,7 +91,13 @@ def manage(request):
 
 @login_required
 def create(request):
-    return render(request, 'skieasy_app/create.html', {})
+    form = EquipmentForm()
+
+    page = {
+        "form": form
+    }
+    return render(request, 'skieasy_app/create.html', page)
+
 
 @login_required
 def listing(request):
