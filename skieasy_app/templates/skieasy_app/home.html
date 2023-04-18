@@ -18,27 +18,34 @@
                 <div class="card-content">
                     <div class="content">
                         <h4>{{ listing.title }}</h4>
-                        <p class="subtitle is-5"><strong>${{ listing.price }}</strong> day</p>
+                        <p class="subtitle is-5 mb-4"><strong>${{ listing.price }}</strong> day</p>
                         <p class="mb-1">{{ listing.equipment_listings.first.startDate|date:"M d" }} - {{ listing.equipment_listings.first.endDate|date:"M d" }}</p>
                         <p>{{ listing.profileId.neighborhood }} Area</p>
-                        <h5>Specifications</h5>
-                        <div class="is-flex is-justify-content-space-between">
-                            <p>Type:</p><span class="tag is-primary">{{ listing.equipmentType }}</span>
-                        </div>
-                        <div class="is-flex is-justify-content-space-between">
-                            <p>Gender:</p><span class="tag is-light">{{ listing.profileId.gender }}</span>
-                        </div>
-                        <div class="is-flex is-justify-content-space-between">
-                            <p>Equipment Height:</p><span class="tag is-link">{{ listing.equipmentHeight }}<em>&nbsp;*inches</em></span>
-                        </div>
-                        <div class="is-flex is-justify-content-space-between">
-                            <p>Boot Size:</p><span class="tag is-info">{{ listing.bootSize }}<em>&nbsp;*US</em></span>
-                        </div>
-                        <div class="is-flex is-justify-content-space-between">
-                            <p>Condition:</p><span class="tag is-warning">{{ listing.wearStatus }}</span>
-                        </div>
-                        <div class="is-flex is-justify-content-space-between">
-                            <p>Skill Level:</p><span class="tag is-danger">{{ listing.skillLevel }}</span>
+                        <div class="is-flex is-justify-content-space-around is-flex-wrap-wrap">
+                            <div class="tags has-addons mb-1">
+                                <span class="tag">Equipment Height</span>
+                                <span class="tag is-link">{{ listing.equipmentHeight }}<em>″</em></span>
+                            </div>
+                            <div class="tags has-addons mb-1">
+                                <span class="tag">Boot Size</span>
+                                <span class="tag is-info">{{ listing.bootSize }}<em><sub>&nbsp;US</sub></em></span>
+                            </div>
+                            <div class="tags has-addons mb-1">
+                                <span class="tag">Type</span>
+                                <span class="tag is-primary">{{ listing.equipmentType }}</span>
+                            </div>
+                            <div class="tags has-addons mb-1">
+                                <span class="tag">Gender</span>
+                                <span class="tag is-white" style="border: 1px solid #CDCDCD;">{{ listing.profileId.gender }}</span>
+                            </div>
+                            <div class="tags has-addons mb-1">
+                                <span class="tag">Condition</span>
+                                <span class="tag is-warning">{{ listing.wearStatus }}</span>
+                            </div>
+                            <div class="tags has-addons mb-1">
+                                <span class="tag">Skill Level</span>
+                                <span class="tag is-danger">{{ listing.skillLevel }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
