@@ -14,14 +14,14 @@ def welcome(request):
     return render(request, 'skieasy_app/welcome.html', {})
 
 
-class HomeView(LoginRequiredMixin ,generic.ListView):
+class HomeView(LoginRequiredMixin, generic.ListView):
     model = Equipment
     template_name = "skieasy_app/home.html"
     context_object_name = "listings"
     paginate_by = 12
 
     def get_queryset(self):
-        return Equipment.objects.prefetch_related('equipment_listings').all() 
+        return Equipment.objects.prefetch_related('equipment_listings').all()
 
 
 @login_required

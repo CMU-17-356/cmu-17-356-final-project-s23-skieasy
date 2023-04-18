@@ -12,6 +12,8 @@ class ProfileForm(forms.ModelForm):
             'height': 'Height (ft):',
             'bootSize': 'Boot Size (US):',
             'userType': 'User Type:',
+            'firstName': 'First Name',
+            'lastName': 'Last Name',
         }
 
 
