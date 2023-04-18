@@ -88,8 +88,8 @@ class EquipmentImages(models.Model):
 
 
 class EquipmentListing(models.Model):
-    equipmentId = models.ForeignKey(Equipment, 
-                                    on_delete=models.PROTECT, 
+    equipmentId = models.ForeignKey(Equipment,
+                                    on_delete=models.PROTECT,
                                     related_name='equipment_listings')
     profileId = models.ForeignKey(Profile, on_delete=models.PROTECT)
     startDate = models.DateTimeField()
