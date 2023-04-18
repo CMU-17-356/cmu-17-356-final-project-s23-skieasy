@@ -18,35 +18,10 @@ class HomeView(LoginRequiredMixin ,generic.ListView):
     model = Equipment
     template_name = "skieasy_app/home.html"
     context_object_name = "listings"
+    paginate_by = 12
 
     def get_queryset(self):
-        one = {
-            "equipmentListingId": 1,
-            "image": "https://shorturl.at/uMV57",
-            "title": "Atomic Bend 90",
-            "price": 9.99,
-            "startDate": "Jan 19, 2023",
-            "endDate": "Jan 29, 2023",
-        }
-        two = {
-            "equipmentListingId": 2,
-            "image": "https://shorturl.at/BNPTZ",
-            "title": "Nordica Enforcers",
-            "price": 19.99,
-            "startDate": "Jan 18, 2023",
-            "endDate": "Jan 25, 2023",
-        }
-        three = {
-            "equipmentListingId": 3,
-            "image": "https://shorturl.at/bmxZ2",
-            "title": "Armeda",
-            "price": 19.99,
-            "startDate": "Jan 5, 2023",
-            "endDate": "Jan 22, 2023",
-        }
-        listings = [one, two, three]
-        return listings
-        # return Equipment.objects.all()
+        return Equipment.objects.prefetch_related('equipment_listings').all() 
 
 
 @login_required

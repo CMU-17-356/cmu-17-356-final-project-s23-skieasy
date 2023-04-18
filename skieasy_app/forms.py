@@ -10,7 +10,7 @@ class ProfileForm(forms.ModelForm):
         )
         labels = {
             'height': 'Height (ft):',
-            'bootSize': 'Boot Size:',
+            'bootSize': 'Boot Size (US):',
             'userType': 'User Type:',
         }
 

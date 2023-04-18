@@ -2,35 +2,67 @@
 
 {% block content %}
 
-<div class="columns is-two-thirds-desktop">
+<div class="columns is-multiline">
     {% for listing in listings %}
-
-    <div class="column">
-        <div class="card">
-            <div class="card-image">
-                <figure class="image is-4by3">
-                <img src={{ listing.image }} alt="Placeholder image">
-                </figure>
-            </div>
-            <div class="card-content">
-                <div class="media">
-                    <div class="media-content">
-                        <p class="title is-4">{{ listing.title }}</p>
-                    </div>
+        <div class="column is-3-fullhd is-4-widescreen is-half-tablet">
+            <div class="card">
+                <div class="card-image">
+                    <figure class="image is-4by3">
+                        
+                        {% with userFile as listing.equipmentimages_set.first %}
+                            <img src={{ userFile.image.url }} alt="Placeholder image">
+                        {% endwith %}
+                            
+                    </figure>
                 </div>
-
-                <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                <a href="#">#css</a> <a href="#">#responsive</a>
-                <br>
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                <div class="card-content">
+                    <div class="content">
+                        <h4>{{ listing.title }}</h4>
+                        <p class="subtitle is-5"><strong>${{ listing.price }}</strong> day</p>
+                        <p class="mb-1">{{ listing.equipment_listings.first.startDate|date:"M d" }} - {{ listing.equipment_listings.first.endDate|date:"M d" }}</p>
+                        <p>{{ listing.profileId.neighborhood }} Area</p>
+                        <h5>Specifications</h5>
+                        <div class="is-flex is-justify-content-space-between">
+                            <p>Type:</p><span class="tag is-primary">{{ listing.equipmentType }}</span>
+                        </div>
+                        <div class="is-flex is-justify-content-space-between">
+                            <p>Gender:</p><span class="tag is-light">{{ listing.profileId.gender }}</span>
+                        </div>
+                        <div class="is-flex is-justify-content-space-between">
+                            <p>Equipment Height:</p><span class="tag is-link">{{ listing.equipmentHeight }}<em>&nbsp;*inches</em></span>
+                        </div>
+                        <div class="is-flex is-justify-content-space-between">
+                            <p>Boot Size:</p><span class="tag is-info">{{ listing.bootSize }}<em>&nbsp;*US</em></span>
+                        </div>
+                        <div class="is-flex is-justify-content-space-between">
+                            <p>Condition:</p><span class="tag is-warning">{{ listing.wearStatus }}</span>
+                        </div>
+                        <div class="is-flex is-justify-content-space-between">
+                            <p>Skill Level:</p><span class="tag is-danger">{{ listing.skillLevel }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
     {% endfor %}
+</div>
+
+<div class="container is-flex is-justify-content-center">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
 </div>
 
 {% endblock %}
