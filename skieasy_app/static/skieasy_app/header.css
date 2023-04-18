@@ -37,3 +37,7 @@ header {
 #header nav a:hover {
     color: rgb(46, 0, 198);
 }
+
+nav.navbar img {
+    max-height: none !important;
+}

@@ -3,47 +3,50 @@ from skieasy_app.models import Profile
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import generic
 
 from .forms import EquipmentForm
+from .models import Equipment
 
 
 def welcome(request):
     return render(request, 'skieasy_app/welcome.html', {})
 
 
-@login_required
-def home(request):
+class HomeView(LoginRequiredMixin ,generic.ListView):
+    model = Equipment
+    template_name = "skieasy_app/home.html"
+    context_object_name = "listings"
 
-    one = {
-        "equipmentListingId": 1,
-        "image": "https://shorturl.at/uMV57",
-        "title": "Atomic Bend 90",
-        "price": 9.99,
-        "startDate": "Jan 19, 2023",
-        "endDate": "Jan 29, 2023",
-    }
-    two = {
-        "equipmentListingId": 2,
-        "image": "https://shorturl.at/BNPTZ",
-        "title": "Nordica Enforcers",
-        "price": 19.99,
-        "startDate": "Jan 18, 2023",
-        "endDate": "Jan 25, 2023",
-    }
-    three = {
-        "equipmentListingId": 3,
-        "image": "https://shorturl.at/bmxZ2",
-        "title": "Armeda",
-        "price": 19.99,
-        "startDate": "Jan 5, 2023",
-        "endDate": "Jan 22, 2023",
-    }
-    listings = [one, two, three]
-
-    page = {
-        "listings": listings
-    }
-    return render(request, 'skieasy_app/home.html', page)
+    def get_queryset(self):
+        one = {
+            "equipmentListingId": 1,
+            "image": "https://shorturl.at/uMV57",
+            "title": "Atomic Bend 90",
+            "price": 9.99,
+            "startDate": "Jan 19, 2023",
+            "endDate": "Jan 29, 2023",
+        }
+        two = {
+            "equipmentListingId": 2,
+            "image": "https://shorturl.at/BNPTZ",
+            "title": "Nordica Enforcers",
+            "price": 19.99,
+            "startDate": "Jan 18, 2023",
+            "endDate": "Jan 25, 2023",
+        }
+        three = {
+            "equipmentListingId": 3,
+            "image": "https://shorturl.at/bmxZ2",
+            "title": "Armeda",
+            "price": 19.99,
+            "startDate": "Jan 5, 2023",
+            "endDate": "Jan 22, 2023",
+        }
+        listings = [one, two, three]
+        return listings
+        # return Equipment.objects.all()
 
 
 @login_required

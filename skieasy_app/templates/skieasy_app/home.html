@@ -1,20 +1,36 @@
 {% extends "skieasy_app/base.html" %}
 
 {% block content %}
-    <div class="row">
-        <div class="col">
-            {% for listing in listings %}
-                <div class="card">
-                    <a href="details/{{ listing.equipmentListingId }}"><img src={{listing.image}} width="10%"/></a>
-                    <br/>
-                    <b>{{listing.title}}</b>
-                    <br/>
-                    From {{listing.startDate}} to {{listing.endDate}}
-                    <br/>
-                    ${{listing.price}}
-                    <hr/>
+
+<div class="columns is-two-thirds-desktop">
+    {% for listing in listings %}
+
+    <div class="column">
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-4by3">
+                <img src={{ listing.image }} alt="Placeholder image">
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-content">
+                        <p class="title is-4">{{ listing.title }}</p>
+                    </div>
                 </div>
-            {% endfor %}
+
+                <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+                <a href="#">#css</a> <a href="#">#responsive</a>
+                <br>
+                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                </div>
+            </div>
         </div>
     </div>
+
+    {% endfor %}
+</div>
+
 {% endblock %}
