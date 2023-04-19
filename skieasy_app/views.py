@@ -97,10 +97,10 @@ def listing(request):
     #     'length': '1',
     # }
     context = {
-        'title':'The best skis ever',
-        'description':'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat augue non odio feugiat, in interdum sapien pharetra. Sed vel commodo justo. Vivamus ac lectus suscipit, venenatis tortor nec, bibendum augue. Proin eget gravida risus. Vivamus tempor semper augue, nec consequat sem interdum in.',
-        'price':'100',
-        'quantity':'1',
+        'title': 'The best skis ever',
+        'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+        'price': '100',
+        'quantity': '1',
         'image': 'https://picsum.photos/id/3/400/400',
         'length': '1',
     }
