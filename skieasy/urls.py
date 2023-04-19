@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import include, path
 from skieasy_app import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.welcome, name='welcome'),
     path('register', views.register, name='register'),
-    path('home', views.home, name='home'),
+    path('home', views.HomeView.as_view(), name='home'),
     path('details/<str:id>', views.details, name="details"),
     path('manage', views.manage, name='manage'),
     path('create', views.create, name='create'),

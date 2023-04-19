@@ -41,6 +41,8 @@ WEAR_STATUS = (
 
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
+    firstName = models.CharField(max_length=40)
+    lastName = models.CharField(max_length=50)
     neighborhood = models.CharField(max_length=25,
                                     choices=NEIGHBORHOOD_CHOICES,
                                     default='Shadyside')
@@ -86,7 +88,9 @@ class EquipmentImages(models.Model):
 
 
 class EquipmentListing(models.Model):
-    equipmentId = models.ForeignKey(Equipment, on_delete=models.PROTECT)
+    equipmentId = models.ForeignKey(Equipment,
+                                    on_delete=models.PROTECT,
+                                    related_name='equipment_listings')
     profileId = models.ForeignKey(Profile, on_delete=models.PROTECT)
     startDate = models.DateTimeField()
     endDate = models.DateTimeField()
