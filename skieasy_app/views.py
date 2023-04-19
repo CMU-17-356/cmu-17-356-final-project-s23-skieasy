@@ -102,8 +102,13 @@ def create(request):
 @login_required
 def listing(request):
     template = loader.get_template('skieasy_app/listing.html')
-    equipment = Equipment.objects.filter(id=1).values()
-    images = EquipmentImages.objects.filter(equipmentId=1).values()[:4]
+    # equipmentlisting = EquipmentListing.objects.filter(id=1).values()
+    # if len(equipmentlisting) > 0:
+    #     equipmentlisting = equipmentlisting[0]
+    # else:
+    #     return HttpResponse("No equipment listing found")
+    # images = EquipmentImages.objects.filter(equipmentId=equipmentlisting.equipmentId).values()[:4]
+    # equipment = Equipment.objects.filter(id=equipmentlisting.equipmentId).values()[0]
     # context = {
     #     'title':'The best skis ever',
     #     'description':equipment.description,
