@@ -2,28 +2,93 @@
 
 <html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SkiEasy</title>
-	<meta charset="UTF-8">
     {% load static %}
 	<link rel="stylesheet" href="{% static 'skieasy_app/header.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'skieasy_app/home.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'skieasy_app/details.css' %}" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="icon" type="image/favicon.ico" href="{% static 'skieasy_app/icon.png' %}">
 </head>
 <body>
-    <div id="header">
-        <header>
-            <a href="{% url 'home' %}"><img src="../../static/skieasy_app/icon.png" class="logo-image"></a>
-            <nav>
-                <a href="{% url 'home' %}">View All Listings</a>
-                <a href="{% url 'manage' %}">Manage My Listings</a>
-                <a href="{% url 'create' %}">Create A Listing</a>
-            </nav>
-        </header>
-    </div>
-    <div class="content">
+
+    <nav class="navbar is-spaced has-shadow" role="navigation" aria-label="main navigation">
+
+        <div class="navbar-brand">
+            <a class="navbar-item p-0" href="{% url 'home' %}">
+                <img src="../../static/skieasy_app/icon.png" id="navbar-logo" width="95px" height="auto" >
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="skieasyNavbar">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="skieasyNavbar" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="{% url 'home' %}">
+                    <span class="icon-text">
+                        <span class="icon">
+                            <i class="fas fa-skiing"></i>
+                        </span>
+                        <span>Home</span>
+                    </span>
+                </a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        <span class="icon-text">
+                            <span class="icon">
+                                <i class="fas fa-stream"></i>
+                            </span>
+                            <span>My Listings</span>
+                        </span>
+                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{% url 'create' %}">
+                            <span class="icon-text">
+                                <span class="icon">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                <span>Create</span>
+                            </span>
+                        </a>
+                        <a class="navbar-item" href="{% url 'manage' %}">
+                            <span class="icon-text">
+                                <span class="icon">
+                                    <i class="fas fa-pen"></i>
+                                </span>
+                                <span>Manage</span>
+                            </span>
+                        </a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item">
+                            Contact
+                        </a>
+                        <a class="navbar-item">
+                            Report an issue
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section content">
         {% block content %}
+
         {% endblock %}
-    </div>
+    </section>
+
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="{% static 'skieasy_app/navbar.js' %}"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+
 </body>
 </html>
