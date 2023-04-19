@@ -86,8 +86,10 @@ def listing(request):
     #     equipmentlisting = equipmentlisting[0]
     # else:
     #     return HttpResponse("No equipment listing found")
-    # images = EquipmentImages.objects.filter(equipmentId=equipmentlisting.equipmentId).values()[:4]
-    # equipment = Equipment.objects.filter(id=equipmentlisting.equipmentId).values()[0]
+    # images = EquipmentImages.objects.filter
+    # (equipmentId=equipmentlisting.equipmentId).values()[:4]
+    # equipment = Equipment.objects.filter
+    # (id=equipmentlisting.equipmentId).values()[0]
     # context = {
     #     'title': 'The best skis ever',
     #     'description': equipment.description,
@@ -98,7 +100,7 @@ def listing(request):
     # }
     context = {
         'title': 'The best skis ever',
-        'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
+        'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing',
         'price': '100',
         'quantity': '1',
         'image': 'https://picsum.photos/id/3/400/400',
