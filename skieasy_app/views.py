@@ -1,5 +1,6 @@
 from skieasy_app.forms import ProfileForm
-from skieasy_app.models import Profile, Equipment, EquipmentImages, EquipmentListing
+from skieasy_app.models import Profile, Equipment
+from skieasy_app.models import EquipmentImages, EquipmentListing
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -88,10 +89,10 @@ def listing(request):
     # images = EquipmentImages.objects.filter(equipmentId=equipmentlisting.equipmentId).values()[:4]
     # equipment = Equipment.objects.filter(id=equipmentlisting.equipmentId).values()[0]
     # context = {
-    #     'title':'The best skis ever',
-    #     'description':equipment.description,
-    #     'price':equipment.price,
-    #     'quantity':'1',
+    #     'title': 'The best skis ever',
+    #     'description': equipment.description,
+    #     'price': equipment.price,
+    #     'quantity': '1',
     #     'images': images,
     #     'length': '1',
     # }
