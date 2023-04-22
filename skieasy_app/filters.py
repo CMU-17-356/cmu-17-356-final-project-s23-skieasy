@@ -1,5 +1,23 @@
 import django_filters
-from .models import Equipment
+from django.db.models import Q, Case, When, Value, CharField
+
+
+from .models import Equipment, EquipmentListing
+
+
+class EquipmentListingFilter(django_filters.FilterSet):
+    start_date = django_filters.DateFilter(
+        field_name='start_date',
+        lookup_expr='gte'
+    )
+    end_date = django_filters.DateFilter(
+        field_name='end_date',
+        lookup_expr='lte'
+    )
+
+    class Meta:
+        model = EquipmentListing
+        fields = ['start_date', 'end_date']
 
 
 class EquipmentFilter(django_filters.FilterSet):
@@ -55,8 +73,6 @@ class EquipmentFilter(django_filters.FilterSet):
         method='filter_neighborhood'
     )
 
-    # TODO -> add filter to find equipment with [start_date, end_date]
-    # & using intervals algo
 
     class Meta:
         model = Equipment
@@ -68,6 +84,59 @@ class EquipmentFilter(django_filters.FilterSet):
             'equipment_height',
         ]
 
+
     def filter_neighborhood(self, queryset, name, value):
         neighborhoods = value.split(',')
         return queryset.filter(profile_id__neighborhood__in=neighborhoods)
+
+
+    def overlap_filter(self, start_date, end_date, listing_start_date, listing_end_date):
+        overlap_start = max(start_date, listing_start_date)
+        overlap_end = min(end_date, listing_end_date)
+        overlap = (overlap_start, overlap_end) if overlap_start < overlap_end else None
+        return overlap
+
+    def filter_queryset(self, queryset):
+        '''
+        Pass start-end_date params to request equipment that has availability
+        within a range of dates. This requires a cross-table join with listings
+        to check for overlapping intervals.
+        Ex:
+        <url>?start_date=2023-10-24&end_date=2023-12-24
+        '''
+
+        queryset = super().filter_queryset(queryset)
+
+        start_date = self.request.GET.get('start_date')
+        end_date = self.request.GET.get('end_date')
+        if start_date and end_date:
+            queryset = queryset.filter(
+                Q(equipment_listings__start_date__lte=end_date) &
+                Q(equipment_listings__end_date__gte=start_date)
+            )
+            queryset = queryset.annotate(
+                overlap_start_date=Case(
+                    When(
+                        equipment_listings__start_date__gte=start_date,
+                        equipment_listings__start_date__lte=end_date,
+                        then='equipment_listings__start_date'
+                    ),
+                    When(
+                        equipment_listings__start_date__lte=start_date,
+                        then=Value(start_date)
+                    ),
+                    output_field=CharField()
+                ),
+                overlap_end_date=Case(
+                    When(
+                        equipment_listings__end_date__gte=start_date,
+                        then=Value(end_date)
+                    ),
+                    When(
+                        equipment_listings__end_date__lte=end_date,
+                        then='equipment_listings__end_date'
+                    ),
+                    output_field=CharField()
+                )
+            )
+        return queryset
