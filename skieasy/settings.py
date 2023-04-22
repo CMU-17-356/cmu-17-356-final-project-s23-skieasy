@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'skieasy_app',
     'debug_toolbar',
-    'social_django'
+    'social_django',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
