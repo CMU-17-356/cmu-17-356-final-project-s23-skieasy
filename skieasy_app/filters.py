@@ -89,8 +89,8 @@ class EquipmentFilter(django_filters.FilterSet):
 
     def filter_queryset(self, queryset):
         '''
-        Pass start-end_date params to request equipment that has 
-        availability within a range of dates. This requires a cross-table 
+        Pass start-end_date params to request equipment that has
+        availability within a range of dates. This requires a cross-table
         join with listings to check for overlapping intervals.
         Ex:
         <url>?start_date=2023-10-24&end_date=2023-12-24
