@@ -73,7 +73,6 @@ class EquipmentFilter(django_filters.FilterSet):
         method='filter_neighborhood'
     )
 
-
     class Meta:
         model = Equipment
         fields = [
@@ -84,25 +83,19 @@ class EquipmentFilter(django_filters.FilterSet):
             'equipment_height',
         ]
 
-
     def filter_neighborhood(self, queryset, name, value):
         neighborhoods = value.split(',')
         return queryset.filter(profile_id__neighborhood__in=neighborhoods)
 
-
-    def overlap_filter(self, start_date, end_date, listing_start_date, listing_end_date):
-        overlap_start = max(start_date, listing_start_date)
-        overlap_end = min(end_date, listing_end_date)
-        overlap = (overlap_start, overlap_end) if overlap_start < overlap_end else None
-        return overlap
-
     def filter_queryset(self, queryset):
         '''
-        Pass start-end_date params to request equipment that has availability
-        within a range of dates. This requires a cross-table join with listings
-        to check for overlapping intervals.
+        Pass start-end_date params to request equipment that has 
+        availability within a range of dates. This requires a cross-table 
+        join with listings to check for overlapping intervals.
         Ex:
         <url>?start_date=2023-10-24&end_date=2023-12-24
+
+        TODO => Will eventually need to also account for reservations
         '''
 
         queryset = super().filter_queryset(queryset)
