@@ -14,13 +14,11 @@
         <h1>Register with SkiEasy!</h1>
     </div>
     <div id="profile-form">
-        <form method="post" action="{% url 'home' %}">
+        <form method="post" action="{% url 'register' %}">
             <table class="profile-register-form">
                 {{ form }}
             </table>
-            <div id="center">
-                <button type="submit">Register</button>
-            </div>
+            <button type="submit">Register</button>
             {% csrf_token %}
         </form>
 

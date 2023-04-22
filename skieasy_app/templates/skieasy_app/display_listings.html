@@ -1,0 +1,13 @@
+{% extends "skieasy_app/base.html" %}
+
+{% block content %}
+<h3> {{ title }}'s Listings </h3>
+    <div id="listings">
+        {% for list in listings %}
+            <div id="list-{{ forloop.counter }}">
+                <span> Start Date: {{ list.startDate }} </span>
+                <span> End Date: {{ list.endDate }} </span>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
