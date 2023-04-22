@@ -14,7 +14,6 @@ def welcome(request):
     return render(request, 'skieasy_app/welcome.html', {})
 
 
-
 @login_required
 def home(request):
     return render(request, 'skieasy_app/home-listing.html', {})
