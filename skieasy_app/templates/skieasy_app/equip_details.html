@@ -1,0 +1,20 @@
+{% extends "skieasy_app/base.html" %}
+
+{% block content %}
+    <div id="equipment">
+        <span> Title: {{ equip.title }} </span>
+        <span> Description: {{ equip.description }} </span>
+        <span> Price: {{ equip.price }} </span>
+        <span> Equipment Product Name: {{ equip.equipmentProductName }} </span>
+        <span> Bindings Product Name: {{ equip.bindingsProductName }} </span>
+        <span> Boots Product Name: {{ equip.bootsProductName }} </span>
+        <span> Skill Level: {{ equip.skillLevel }} </span>
+        <span> Equipment Height: {{ equip.equipmentHeight }} </span>
+        <span> Boot Size: {{ equip.bootSize }} </span>
+        <span> Wear Status: {{ equip.wearStatus }} </span>
+        <span> Equipment Type: {{ equip.equipmentType }} </span>
+    </div>
+
+    <a href="{% url 'create-listing' equip.id %}"> Create Listing </a>
+    <a href="{% url 'display-listing' equip.id %}"> Display Listing </a>
+{% endblock %}
