@@ -51,13 +51,13 @@ class Profile(models.Model):
     height = models.DecimalField(max_digits=10, decimal_places=2)
     gender = models.CharField(
         max_length=25,
-        choices=GENDER_CHOICES, 
+        choices=GENDER_CHOICES,
         default='Male'
     )
     boot_size = models.DecimalField(max_digits=10, decimal_places=2)
     user_type = models.CharField(
         max_length=10,
-        choices=USER_CHOICES, 
+        choices=USER_CHOICES,
         default='Ski'
     )
 
@@ -75,19 +75,19 @@ class Equipment(models.Model):
     boots_product_name = models.CharField(max_length=1000)
     skill_level = models.CharField(
         max_length=25,
-        choices=SKILL_LEVEL, 
+        choices=SKILL_LEVEL,
         default='Beginner'
     )
     equipment_height = models.DecimalField(max_digits=10, decimal_places=2)
     boot_size = models.DecimalField(max_digits=10, decimal_places=1)
     wear_status = models.CharField(
         max_length=25,
-        choices=WEAR_STATUS, 
+        choices=WEAR_STATUS,
         default='Factory-New'
     )
     equipment_type = models.CharField(
         max_length=10,
-        choices=USER_CHOICES, 
+        choices=USER_CHOICES,
         default='Ski'
     )
 
