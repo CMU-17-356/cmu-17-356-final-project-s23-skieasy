@@ -4,7 +4,7 @@ from .models import Equipment
 
 class EquipmentFilter(django_filters.FilterSet):
     '''
-    Pass min-max price query params to request equipment within a 
+    Pass min-max price query params to request equipment within a
     range of prices.
     Ex:
     <url>?min_price=10&max_price=20 => equipment within [$10, $20]
@@ -63,8 +63,8 @@ class EquipmentFilter(django_filters.FilterSet):
         fields = [
             # default filter for a field will match 'exact'
             'equipment_type',
-            'wear_status', 
-            'boot_size', 
+            'wear_status',
+            'boot_size',
             'equipment_height',
         ]
 
