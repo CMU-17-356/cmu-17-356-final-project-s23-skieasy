@@ -8,7 +8,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 
 
-
 def welcome(request):
     return render(request, 'skieasy_app/welcome.html', {})
 
@@ -52,6 +51,7 @@ def register(request):
 @login_required
 def manage(request):
     return render(request, 'skieasy_app/manage.html', {})
+
 
 @login_required
 def equipment_details(request, id):
@@ -108,10 +108,10 @@ def display_listing(request, id):
     context = {}
     context["title"] = equip.title
     listings = []
-    for l in listing:
+    for lis in listing:
         item = {
-            "startDate": l.startDate,
-            "endDate": l.endDate,
+            "startDate": lis.startDate,
+            "endDate": lis.endDate,
         }
         listings.append(item)
     context["listings"] = listings
@@ -124,7 +124,7 @@ def create_equipment(request):
     if (request.method == 'GET'):
         context['form'] = EquipmentForm()
         return render(request, 'skieasy_app/create_equipment.html', context)
-    
+
     form = EquipmentForm(request.POST)
     context['form'] = form
 
@@ -132,18 +132,21 @@ def create_equipment(request):
         return render(request, 'skieasy_app/create_equipment.html', context)
 
     new_equip = Equipment(profileId=Profile.objects.get(id=request.user.id),
-                title=form.cleaned_data["title"],
-                description=form.cleaned_data["description"],
-                price=form.cleaned_data["price"],
-                equipmentProductName=form.cleaned_data["equipmentProductName"],
-                bindingsProductName=form.cleaned_data["bindingsProductName"],
-                bootsProductName=form.cleaned_data["bootsProductName"],
-                skillLevel=form.cleaned_data["skillLevel"],
-                equipmentHeight=form.cleaned_data["equipmentHeight"],
-                bootSize=form.cleaned_data["bootSize"],
-                wearStatus=form.cleaned_data["wearStatus"],
-                equipmentType=form.cleaned_data["equipmentType"])
-    
+                          title=form.cleaned_data["title"],
+                          description=form.cleaned_data["description"],
+                          price=form.cleaned_data["price"],
+                          equipmentProductName=form.cleaned_data
+                          ["equipmentProductName"],
+                          bindingsProductName=form.cleaned_data
+                          ["bindingsProductName"],
+                          bootsProductName=form.cleaned_data
+                          ["bootsProductName"],
+                          skillLevel=form.cleaned_data["skillLevel"],
+                          equipmentHeight=form.cleaned_data["equipmentHeight"],
+                          bootSize=form.cleaned_data["bootSize"],
+                          wearStatus=form.cleaned_data["wearStatus"],
+                          equipmentType=form.cleaned_data["equipmentType"])
+
     new_equip.save()
 
     return redirect(display_equipment)
@@ -158,18 +161,19 @@ def create_listing(request, id):
     if (request.method == 'GET'):
         context['form'] = EquipmentListingForm()
         return render(request, 'skieasy_app/create_listing.html', context)
-    
+
     form = EquipmentListingForm(request.POST)
     context['form'] = form
 
     if (not form.is_valid()):
         return render(request, 'skieasy_app/create_listing.html', context)
 
-    new_listing = EquipmentListing(profileId=Profile.objects.get(id=request.user.id),
-                equipmentId=equip,
-                startDate=form.cleaned_data["startDate"],
-                endDate=form.cleaned_data["endDate"])
-    
+    new_listing = EquipmentListing(
+        profileId=Profile.objects.get(id=request.user.id),
+        equipmentId=equip,
+        startDate=form.cleaned_data["startDate"],
+        endDate=form.cleaned_data["endDate"])
+
     new_listing.save()
 
     return redirect(display_listing, id=id)

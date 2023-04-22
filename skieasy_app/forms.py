@@ -24,6 +24,9 @@ class EquipmentForm(forms.ModelForm):
             'profileId',
         )
 
+
 class EquipmentListingForm(forms.Form):
-    startDate = forms.DateTimeField(label = 'Start Date', widget = forms.SelectDateWidget)
-    endDate = forms.DateTimeField(label = 'End Date', widget = forms.SelectDateWidget)
+    startDate = forms.DateTimeField(label='Start Date',
+                                    widget=forms.SelectDateWidget)
+    endDate = forms.DateTimeField(label='End Date',
+                                  widget=forms.SelectDateWidget)
