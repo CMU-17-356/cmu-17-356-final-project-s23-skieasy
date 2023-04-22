@@ -1,15 +1,18 @@
+
 from skieasy_app.forms import ProfileForm, EquipmentListingForm, EquipmentForm
 from skieasy_app.models import Profile, Equipment, EquipmentListing
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import generic
+from django_filters.views import FilterView
 
 
 def welcome(request):
     return render(request, 'skieasy_app/welcome.html', {})
+
 
 
 @login_required
@@ -22,7 +25,7 @@ def home(request):
 #     template_name = "skieasy_app/home.html"
 #     context_object_name = "listings"
 #     paginate_by = 12
-
+#
 #     def get_queryset(self):
 #         return Equipment.objects.prefetch_related('equipment_listings').all()
 
