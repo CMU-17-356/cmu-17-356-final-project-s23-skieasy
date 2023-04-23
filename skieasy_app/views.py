@@ -80,7 +80,7 @@ def equipment_details(request, id):
 @login_required
 def display_equipment(request):
     profile = Profile.objects.get(id=request.user.id)
-    equip = Equipment.objects.filter(profileId=profile.id)
+    equip = Equipment.objects.filter(profile_id=profile.id)
     context = {}
     items = []
     for e in equip:
@@ -106,7 +106,7 @@ def display_equipment(request):
 @login_required
 def display_listing(request, id):
     equip = Equipment.objects.get(id=id)
-    listing = EquipmentListing.objects.filter(equipmentId=id)
+    listing = EquipmentListing.objects.filter(equipment_id=id)
     context = {}
     context["title"] = equip.title
     listings = []
@@ -133,7 +133,7 @@ def create_equipment(request):
     if (not form.is_valid()):
         return render(request, 'skieasy_app/create_equipment.html', context)
 
-    new_equip = Equipment(profileId=Profile.objects.get(id=request.user.id),
+    new_equip = Equipment(profile_id=Profile.objects.get(id=request.user.id),
                           title=form.cleaned_data["title"],
                           description=form.cleaned_data["description"],
                           price=form.cleaned_data["price"],
@@ -144,7 +144,8 @@ def create_equipment(request):
                           boots_product_name=form.cleaned_data
                           ["boots_product_name"],
                           skill_level=form.cleaned_data["skill_level"],
-                          equipment_height=form.cleaned_data["equipment_height"],
+                          equipment_height=form.cleaned_data
+                          ["equipment_height"],
                           boot_size=form.cleaned_data["boot_size"],
                           wear_status=form.cleaned_data["wear_status"],
                           equipment_type=form.cleaned_data["equipment_type"])
@@ -179,3 +180,4 @@ def create_listing(request, id):
     new_listing.save()
 
     return redirect(display_listing, id=id)
+

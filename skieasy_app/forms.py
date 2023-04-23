@@ -26,7 +26,11 @@ class EquipmentForm(forms.ModelForm):
 
 
 class EquipmentListingForm(forms.Form):
-    start_date = forms.DateTimeField(label='Start Date',
-                                    widget=forms.SelectDateWidget)
-    end_date = forms.DateTimeField(label='End Date',
-                                  widget=forms.SelectDateWidget)
+    start_date = forms.DateTimeField(
+        label='Start Date',
+        widget=forms.SelectDateWidget
+    )
+    end_date = forms.DateTimeField(
+        label='End Date',
+        widget=forms.SelectDateWidget
+    )
