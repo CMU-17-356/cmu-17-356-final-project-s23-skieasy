@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bulma-calendar@6.1.19/dist/css/bulma-calendar.min.css" rel="stylesheet">
     <link rel="icon" type="image/favicon.ico" href="{% static 'skieasy_app/icon.png' %}">
 </head>
 <body>
@@ -22,6 +23,136 @@
             <a class="navbar-item p-0" href="{% url 'home' %}">
                 <img src="../../static/skieasy_app/icon.png" id="navbar-logo" width="95px" height="auto" >
             </a>
+
+            <div class="navbar-item">
+
+                <div class="dropdown">
+                    <div class="dropdown-trigger">
+                        <button id="dropdown-button" class="button is-rounded" aria-haspopup="true" aria-controls="dropdown-menu2">
+                            <span class="icon">
+                                <i class="fas fa-search" aria-hidden="true"></i>
+                            </span>
+                            <span>Search Equipment</span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu2" role="menu">
+
+                        <article class="panel is-info">
+
+                            <p class="panel-tabs has-background-white">
+                                <a class="is-active" data-target="dates-tab">Dates</a>
+                                <a data-target="location-tab">Location</a>
+                                <a data-target="specs-tab">Specs</a>
+                            </p>
+
+                            <div class="is-active filter-panel" id="dates-tab">
+
+                                <div class="panel-block is-flex-wrap-wrap">
+                                    <div class="control p-1">
+                                        <div class="field">
+                                            <input id="pick-up-calendar" type="date">
+                                        </div>
+                                    </div>
+                                    <div class="control p-1">
+                                        <div class="field">
+                                            <input id="drop-off-calendar" type="date">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div> 
+
+                            <div class="is-hidden filter-panel" id="location-tab">
+
+                                <div class="panel-block">
+                                    <div class="control">
+                                        <div class="field">
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Downtown
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                East Liberty
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Oakland
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Shadyside
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Southside
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Squirrel Hill North
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Squirrel Hill South
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div> 
+
+                            <div class="is-hidden filter-panel" id="specs-tab">
+
+                                <div class="panel-block">
+                                    <div class="control has-icons-left">
+                                          <div class="select">
+                                                <select>
+                                                    <option selected>Ski</option>
+                                                    <option>Snowboard</option>
+                                                </select>
+                                            </div>
+                                            <div class="icon is-small is-left">
+                                                <i class="fas fa-snowflake"></i>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="panel-block">
+                                    <div class="control has-icons-left">
+                                          <div class="select">
+                                                <select>
+                                                    <option selected>Unspecified</option>
+                                                    <option>Male</option>
+                                                    <option>Female</option>
+                                                </select>
+                                            </div>
+                                            <div class="icon is-small is-left">
+                                                <i class="fas fa-venus-mars"></i>
+                                            </div>
+                                    </div>
+                                </div>
+
+                            </div> 
+
+                            <div class="panel-block">
+                                <div class="panel-block">
+                                    <p class="control has-icons-left">
+                                    <input class="input is-info" type="text" placeholder="Apply">
+                                    <span class="icon is-left">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </span>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="skieasyNavbar">
                 <span aria-hidden="true"></span>
@@ -90,6 +221,7 @@
     {% load static %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bulma-calendar@6.1.19/dist/js/bulma-calendar.min.js"></script>
     <script src="{% static 'skieasy_app/navbar.js' %}"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
 
