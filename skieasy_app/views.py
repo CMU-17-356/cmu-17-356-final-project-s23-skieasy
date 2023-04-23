@@ -44,8 +44,8 @@ def register(request):
                           neighborhood=form.cleaned_data['neighborhood'],
                           height=form.cleaned_data['height'],
                           gender=form.cleaned_data['gender'],
-                          bootSize=form.cleaned_data['bootSize'],
-                          userType=form.cleaned_data['userType'])
+                          boot_size=form.cleaned_data['boot_size'],
+                          user_type=form.cleaned_data['user_type'])
     new_profile.save()
     return render(request, 'skieasy_app/home-listing.html', {})
 
@@ -64,14 +64,14 @@ def equipment_details(request, id):
             "title": e.title,
             "description": e.description,
             "price": e.price,
-            "equipmentProductName": e.equipmentProductName,
-            "bindingsProductName": e.bindingsProductName,
-            "bootsProductName": e.bootsProductName,
-            "skillLevel": e.skillLevel,
-            "equipmentHeight": e.equipmentHeight,
-            "bootSize": e.bootSize,
-            "wearStatus": e.wearStatus,
-            "equipmentType": e.equipmentType
+            "equipment_product_name": e.equipment_product_name,
+            "bindings_product_name": e.bindings_product_name,
+            "boots_product_name": e.boots_product_name,
+            "skill_level": e.skill_level,
+            "equipment_height": e.equipment_height,
+            "boot_size": e.boot_size,
+            "wear_status": e.wear_status,
+            "equipment_type": e.equipment_type
     }
     context["equip"] = equip
     return render(request, 'skieasy_app/equip_details.html', context)
@@ -89,14 +89,14 @@ def display_equipment(request):
             "title": e.title,
             "description": e.description,
             "price": e.price,
-            "equipmentProductName": e.equipmentProductName,
-            "bindingsProductName": e.bindingsProductName,
-            "bootsProductName": e.bootsProductName,
-            "skillLevel": e.skillLevel,
-            "equipmentHeight": e.equipmentHeight,
-            "bootSize": e.bootSize,
-            "wearStatus": e.wearStatus,
-            "equipmentType": e.equipmentType
+            "equipment_product_name": e.equipment_product_name,
+            "bindings_product_name": e.bindings_product_name,
+            "boots_product_name": e.boots_product_name,
+            "skill_level": e.skill_level,
+            "equipment_height": e.equipment_height,
+            "boot_size": e.boot_size,
+            "wear_status": e.wear_status,
+            "equipment_type": e.equipment_type
         }
         items.append(item)
     context["items"] = items
@@ -112,8 +112,8 @@ def display_listing(request, id):
     listings = []
     for lis in listing:
         item = {
-            "startDate": lis.startDate,
-            "endDate": lis.endDate,
+            "start_date": lis.start_date,
+            "end_date": lis.end_date,
         }
         listings.append(item)
     context["listings"] = listings
@@ -137,17 +137,17 @@ def create_equipment(request):
                           title=form.cleaned_data["title"],
                           description=form.cleaned_data["description"],
                           price=form.cleaned_data["price"],
-                          equipmentProductName=form.cleaned_data
-                          ["equipmentProductName"],
-                          bindingsProductName=form.cleaned_data
-                          ["bindingsProductName"],
-                          bootsProductName=form.cleaned_data
-                          ["bootsProductName"],
-                          skillLevel=form.cleaned_data["skillLevel"],
-                          equipmentHeight=form.cleaned_data["equipmentHeight"],
-                          bootSize=form.cleaned_data["bootSize"],
-                          wearStatus=form.cleaned_data["wearStatus"],
-                          equipmentType=form.cleaned_data["equipmentType"])
+                          equipment_product_name=form.cleaned_data
+                          ["equipment_product_name"],
+                          bindings_product_name=form.cleaned_data
+                          ["bindings_product_name"],
+                          boots_product_name=form.cleaned_data
+                          ["boots_product_name"],
+                          skill_level=form.cleaned_data["skill_level"],
+                          equipment_height=form.cleaned_data["equipment_height"],
+                          boot_size=form.cleaned_data["boot_size"],
+                          wear_status=form.cleaned_data["wear_status"],
+                          equipment_type=form.cleaned_data["equipment_type"])
 
     new_equip.save()
 
@@ -171,10 +171,10 @@ def create_listing(request, id):
         return render(request, 'skieasy_app/create_listing.html', context)
 
     new_listing = EquipmentListing(
-        profileId=Profile.objects.get(id=request.user.id),
-        equipmentId=equip,
-        startDate=form.cleaned_data["startDate"],
-        endDate=form.cleaned_data["endDate"])
+        profile_id=Profile.objects.get(id=request.user.id),
+        equipment_id=equip,
+        start_date=form.cleaned_data["start_date"],
+        end_date=form.cleaned_data["end_date"])
 
     new_listing.save()
 
