@@ -180,4 +180,3 @@ def create_listing(request, id):
     new_listing.save()
 
     return redirect(display_listing, id=id)
-
