@@ -1,4 +1,4 @@
-from skieasy_app.models import Profile, Equipment
+from skieasy_app.models import Profile, Equipment, EquipmentListing
 from django import forms
 
 
@@ -10,10 +10,10 @@ class ProfileForm(forms.ModelForm):
         )
         labels = {
             'height': 'Height (ft):',
-            'bootSize': 'Boot Size (US):',
-            'userType': 'User Type:',
-            'firstName': 'First Name',
-            'lastName': 'Last Name',
+            'boot_size': 'Boot Size (US):',
+            'user_type': 'User Type:',
+            'first_name': 'First Name',
+            'last_name': 'Last Name',
         }
 
 
@@ -21,5 +21,16 @@ class EquipmentForm(forms.ModelForm):
     class Meta:
         model = Equipment
         exclude = (
-            'profileId',
+            'profile_id',
         )
+
+
+class EquipmentListingForm(forms.Form):
+    start_date = forms.DateTimeField(
+        label='Start Date',
+        widget=forms.SelectDateWidget
+    )
+    end_date = forms.DateTimeField(
+        label='End Date',
+        widget=forms.SelectDateWidget
+    )

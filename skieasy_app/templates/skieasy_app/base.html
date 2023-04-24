@@ -231,12 +231,12 @@
                             <span class="icon">
                                 <i class="fas fa-stream"></i>
                             </span>
-                            <span>My Listings</span>
+                            <span>My Equipment</span>
                         </span>
                     </a>
 
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="{% url 'create' %}">
+                        <a class="navbar-item" href="{% url 'create-equipment' %}">
                             <span class="icon-text">
                                 <span class="icon">
                                     <i class="fas fa-plus"></i>
@@ -244,7 +244,7 @@
                                 <span>Create</span>
                             </span>
                         </a>
-                        <a class="navbar-item" href="{% url 'manage' %}">
+                        <a class="navbar-item" href="{% url 'display-equipment' %}">
                             <span class="icon-text">
                                 <span class="icon">
                                     <i class="fas fa-pen"></i>
@@ -261,15 +261,18 @@
                         </a>
                     </div>
                 </div>
+                <a class="navbar-item" href="{% url 'logout' %}">
+                    <span>Logout</span>
+            </a>
             </div>
         </div>
     </nav>
 
-    <section class="section content">
+    <div class="section content">
         {% block content %}
 
         {% endblock %}
-    </section>
+    </div>
 
     {% load static %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

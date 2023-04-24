@@ -16,16 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from skieasy_app import views
-
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.welcome, name='welcome'),
     path('register', views.register, name='register'),
-    path('home', views.HomeView.as_view(), name='home'),
-    path('details/<str:id>', views.details, name="details"),
+    path('home', views.home, name='home'),
+    path('equipment-details/<int:id>', views.equipment_details, name="equipment-details"),
     path('manage', views.manage, name='manage'),
-    path('create', views.create, name='create'),
+    path('create-equipment', views.create_equipment, name='create-equipment'),
+    path('display-equipment', views.display_equipment, name='display-equipment'),
     path('__debug__/', include('debug_toolbar.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),
+    path('logout', auth_views.logout_then_login, name='logout'),
+    path('create-listing/<int:id>', views.create_listing, name='create-listing'),
+    path('display-listing/<int:id>', views.display_listing, name='display-listing')
+
 ]
