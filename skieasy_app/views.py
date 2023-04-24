@@ -180,3 +180,23 @@ def create_listing(request, id):
     new_listing.save()
 
     return redirect(display_listing, id=id)
+
+
+@login_required
+def update_equipment(request, id):
+    equip = Equipment.objects.get(id=id)
+    context = {}
+    context['equip_id'] = id
+    if (request.method == 'GET'):
+        context['form'] = EquipmentForm(instance=equip)
+        return render(request, 'skieasy_app/update_equipment.html', context)
+
+    form = EquipmentForm(request.POST, instance=equip)
+    context['form'] = form
+
+    if (not form.is_valid()):
+        return render(request, 'skieasy_app/update_equipment.html', context)
+
+    form.save()
+
+    return redirect(display_equipment)
