@@ -7,7 +7,7 @@ NEIGHBORHOOD_CHOICES = (
     ('Squirrel Hill North', 'SQUIRREL HILL NORTH'),
     ('Squirrel Hill South', 'SQUIRREL HILL SOUTH'),
     ('Oakland', 'OAKLAND'),
-    ('East Libery', 'EAST LIBERTY'),
+    ('East Liberty', 'EAST LIBERTY'),
     ('Downtown', 'DOWNTOWN'),
     ('Southside', 'SOUTHSIDE')
 )
