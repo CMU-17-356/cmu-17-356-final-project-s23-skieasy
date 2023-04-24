@@ -5,8 +5,8 @@
     <div id="listings">
         {% for list in listings %}
             <div id="list-{{ forloop.counter }}">
-                <span> Start Date: {{ list.startDate }} </span>
-                <span> End Date: {{ list.endDate }} </span>
+                <span> Start Date: {{ list.start_date }} </span>
+                <span> End Date: {{ list.end_date }} </span>
             </div>
         {% endfor %}
     </div>

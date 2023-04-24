@@ -19,32 +19,32 @@
                     <div class="content">
                         <h4>{{ listing.title }}</h4>
                         <p class="subtitle is-5 mb-4"><strong>${{ listing.price }}</strong> day</p>
-                        <p class="mb-1">{{ listing.equipment_listings.first.startDate|date:"M d" }} - {{ listing.equipment_listings.first.endDate|date:"M d" }}</p>
-                        <p>{{ listing.profileId.neighborhood }} Area</p>
+                        <p class="mb-1">{{ listing.equipment_listings.first.start_date|date:"M d" }} - {{ listing.equipment_listings.first.end_date|date:"M d" }}</p>
+                        <p>{{ listing.profile_id.neighborhood }} Area</p>
                         <div class="is-flex is-justify-content-space-around is-flex-wrap-wrap">
                             <div class="tags has-addons mb-1">
                                 <span class="tag">Equipment Height</span>
-                                <span class="tag is-link">{{ listing.equipmentHeight }}<em>″</em></span>
+                                <span class="tag is-link">{{ listing.equipment_height }}<em>″</em></span>
                             </div>
                             <div class="tags has-addons mb-1">
                                 <span class="tag">Boot Size</span>
-                                <span class="tag is-info">{{ listing.bootSize }}<em><sub>&nbsp;US</sub></em></span>
+                                <span class="tag is-info">{{ listing.boot_size }}<em><sub>&nbsp;US</sub></em></span>
                             </div>
                             <div class="tags has-addons mb-1">
                                 <span class="tag">Type</span>
-                                <span class="tag is-primary">{{ listing.equipmentType }}</span>
+                                <span class="tag is-primary">{{ listing.equipment_type }}</span>
                             </div>
                             <div class="tags has-addons mb-1">
                                 <span class="tag">Gender</span>
-                                <span class="tag is-white" style="border: 1px solid #CDCDCD;">{{ listing.profileId.gender }}</span>
+                                <span class="tag is-white" style="border: 1px solid #CDCDCD;">{{ listing.profile_id.gender }}</span>
                             </div>
                             <div class="tags has-addons mb-1">
                                 <span class="tag">Condition</span>
-                                <span class="tag is-warning">{{ listing.wearStatus }}</span>
+                                <span class="tag is-warning">{{ listing.wear_status }}</span>
                             </div>
                             <div class="tags has-addons mb-1">
                                 <span class="tag">Skill Level</span>
-                                <span class="tag is-danger">{{ listing.skillLevel }}</span>
+                                <span class="tag is-danger">{{ listing.skill_level }}</span>
                             </div>
                         </div>
                     </div>
