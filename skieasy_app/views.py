@@ -14,6 +14,7 @@ from django_filters.views import FilterView
 def welcome(request):
     return render(request, 'skieasy_app/welcome.html', {})
 
+
 class HomeView(LoginRequiredMixin, FilterView):
     model = Equipment
     filterset_class = EquipmentFilter
