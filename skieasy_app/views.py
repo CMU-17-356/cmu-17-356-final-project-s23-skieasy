@@ -183,25 +183,20 @@ def create_listing(request, id):
 
 
 @login_required
-def update_listing(request, id):
+def update_equipment(request, id):
+    equip = Equipment.objects.get(id=id)
     context = {}
-    listing = EquipmentListing.objects.get(id=id)
-    equip = listing.equipmentId
-    context['title'] = equip.title
-    context['equip_id'] = equip.id
-    context['listing_id'] = listing.id
-
+    context['equip_id'] = id
     if (request.method == 'GET'):
-        form = EquipmentListingForm(instance=listing)
-        context['form'] = form
-        return render(request, 'skieasy_app/update_listing.html', context)
+        context['form'] = EquipmentForm(instance=equip)
+        return render(request, 'skieasy_app/update_equipment.html', context)
 
-    form = EquipmentListingForm(request.POST, instance=listing)
+    form = EquipmentForm(request.POST, instance=equip)
     context['form'] = form
 
     if (not form.is_valid()):
-        return render(request, 'skieasy_app/update_listing.html', context)
+        return render(request, 'skieasy_app/update_equipment.html', context)
 
     form.save()
 
-    return redirect(display_listing, id=equip.id)
+    return redirect(display_equipment)
