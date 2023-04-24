@@ -1,6 +1,7 @@
 
 from skieasy_app.forms import ProfileForm, EquipmentListingForm, EquipmentForm
 from skieasy_app.models import Profile, Equipment, EquipmentListing
+from skieasy_app.filters import EquipmentFilter
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse
 
@@ -13,20 +14,12 @@ from django_filters.views import FilterView
 def welcome(request):
     return render(request, 'skieasy_app/welcome.html', {})
 
-
-@login_required
-def home(request):
-    return render(request, 'skieasy_app/home-listing.html', {})
-
-
-# class HomeView(LoginRequiredMixin, generic.ListView):
-#     model = Equipment
-#     template_name = "skieasy_app/home.html"
-#     context_object_name = "listings"
-#     paginate_by = 12
-#
-#     def get_queryset(self):
-#         return Equipment.objects.prefetch_related('equipment_listings').all()
+class HomeView(LoginRequiredMixin, FilterView):
+    model = Equipment
+    filterset_class = EquipmentFilter
+    template_name = "skieasy_app/home.html"
+    context_object_name = "listings"
+    paginate_by = 12
 
 
 @login_required

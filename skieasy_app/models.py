@@ -95,7 +95,7 @@ class Equipment(models.Model):
         return f'id={self.id}, profile="{self.profile_id}"'
 
 
-class EquipmentImages(models.Model):
+class EquipmentImage(models.Model):
     image = models.FileField(blank=True)
     content_type = models.CharField(max_length=50)
     equipment_id = models.ForeignKey(Equipment, on_delete=models.PROTECT)
