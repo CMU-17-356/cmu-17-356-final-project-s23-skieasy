@@ -5,21 +5,6 @@ from django.db.models import Q, Case, When, Value, CharField
 from .models import Equipment, EquipmentListing
 
 
-class EquipmentListingFilter(django_filters.FilterSet):
-    start_date = django_filters.DateFilter(
-        field_name='start_date',
-        lookup_expr='gte'
-    )
-    end_date = django_filters.DateFilter(
-        field_name='end_date',
-        lookup_expr='lte'
-    )
-
-    class Meta:
-        model = EquipmentListing
-        fields = ['start_date', 'end_date']
-
-
 class EquipmentFilter(django_filters.FilterSet):
     '''
     Pass min-max price query params to request equipment within a
