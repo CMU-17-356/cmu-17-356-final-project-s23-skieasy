@@ -156,7 +156,7 @@ def listing(request, id):
     if len(equip_images) == 0:
         img=['https://via.placeholder.com/500' for i in range(4)]
     else:
-        img = [val.image for val in equip_images][:4]
+        img = [val.image for val in equip_images]
         
     context = {'listing':
                {
