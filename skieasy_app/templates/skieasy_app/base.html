@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="{% static 'skieasy_app/home.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'skieasy_app/details.css' %}" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bulma-calendar@6.1.19/dist/css/bulma-calendar.min.css" rel="stylesheet">
     <link rel="icon" type="image/favicon.ico" href="{% static 'skieasy_app/icon.png' %}">
 </head>
 <body>
@@ -20,6 +23,189 @@
             <a class="navbar-item p-0" href="{% url 'home' %}">
                 <img src="../../static/skieasy_app/icon.png" id="navbar-logo" width="95px" height="auto" >
             </a>
+
+            <div class="navbar-item">
+
+                <div class="dropdown">
+                    <div class="dropdown-trigger">
+                        <button id="dropdown-button" class="button is-rounded" aria-haspopup="true" aria-controls="dropdown-menu2">
+                            <span class="icon">
+                                <i class="fas fa-search" aria-hidden="true"></i>
+                            </span>
+                            <span>Search Equipment</span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu2" role="menu">
+
+                        <article class="panel is-info has-background-white">
+
+                            <p class="panel-tabs">
+                                <a class="is-active" data-target="dates-tab">Dates</a>
+                                <a data-target="location-tab">Location</a>
+                                <a data-target="specs-tab">Specs</a>
+                            </p>
+
+                            <div class="is-active filter-panel" id="dates-tab">
+
+                                <div class="panel-block is-flex-wrap-wrap">
+                                    <div class="control p-1">
+                                        <div class="field">
+                                            <input id="pick-up-calendar" type="date">
+                                        </div>
+                                    </div>
+                                    <div class="control p-1">
+                                        <div class="field">
+                                            <input id="drop-off-calendar" type="date">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div> 
+
+                            <div class="is-hidden filter-panel" id="location-tab">
+
+                                <div class="panel-block">
+                                    <div class="control">
+                                        <div class="field">
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Downtown
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                East Liberty
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Oakland
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Shadyside
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Southside
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Squirrel Hill North
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Squirrel Hill South
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div> 
+
+                            <div class="is-hidden filter-panel" id="specs-tab">
+
+                                <div class="panel-block">
+                                    <div class="control has-icons-left">
+                                          <div class="select is-small">
+                                                <select>
+                                                    <option selected>Ski</option>
+                                                    <option>Snowboard</option>
+                                                </select>
+                                            </div>
+                                            <div class="icon is-small is-left">
+                                                <i class="fas fa-snowflake"></i>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="panel-block">
+                                    <div class="control has-icons-left">
+                                          <div class="select is-small">
+                                                <select>
+                                                    <option selected>Unspecified</option>
+                                                    <option>Male</option>
+                                                    <option>Female</option>
+                                                </select>
+                                            </div>
+                                            <div class="icon is-small is-left">
+                                                <i class="fas fa-venus-mars"></i>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="panel-block is-flex-wrap-wrap">
+                                    <div class="field">
+                                        <label class="label">Min-Max Price</label>
+                                        <div class="control has-icons-left m-1">
+                                            <input class="input is-small" type="text" placeholder="min">
+                                            <span class="icon is-small is-left">
+                                            <i class="fas fa-dollar-sign"></i>
+                                            </span>
+                                        </div>
+                                        <div class="control has-icons-left m-1">
+                                            <input class="input is-small" type="text" placeholder="max">
+                                            <span class="icon is-small is-left">
+                                            <i class="fas fa-dollar-sign"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-block is-flex-wrap-wrap">
+                                    <div class="field">
+                                        <label class="label">Equipment Height</label>
+                                        <div class="control has-icons-left">
+                                            <input class="input is-small" type="text" placeholder="inches">
+                                            <span class="icon is-small is-left">
+                                            <i class="fas fa-ruler-vertical"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="control">
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Allow similar heights?
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-block is-flex-wrap-wrap">
+                                    <div class="field">
+                                        <label class="label">Boot Size</label>
+                                        <div class="control has-icons-left">
+                                            <input class="input is-small" type="text" placeholder="in US sizes">
+                                            <span class="icon is-small is-left">
+                                            <i class="fas fa-shoe-prints"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="control">
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Allow close sizes?
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div> 
+
+                            <div class="panel-block is-justify-content-center">
+                                <button class="button is-primary">
+                                    <span class="icon">
+                                    <i class="fas fa-check"></i>
+                                    </span>
+                                    <span>Apply</span>
+                                </button>
+                            </div>
+
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="skieasyNavbar">
                 <span aria-hidden="true"></span>
@@ -45,12 +231,12 @@
                             <span class="icon">
                                 <i class="fas fa-stream"></i>
                             </span>
-                            <span>My Listings</span>
+                            <span>My Equipment</span>
                         </span>
                     </a>
 
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="{% url 'create' %}">
+                        <a class="navbar-item" href="{% url 'create-equipment' %}">
                             <span class="icon-text">
                                 <span class="icon">
                                     <i class="fas fa-plus"></i>
@@ -58,7 +244,7 @@
                                 <span>Create</span>
                             </span>
                         </a>
-                        <a class="navbar-item" href="{% url 'manage' %}">
+                        <a class="navbar-item" href="{% url 'display-equipment' %}">
                             <span class="icon-text">
                                 <span class="icon">
                                     <i class="fas fa-pen"></i>
@@ -75,18 +261,23 @@
                         </a>
                     </div>
                 </div>
+                <a class="navbar-item" href="{% url 'logout' %}">
+                    <span>Logout</span>
+            </a>
             </div>
         </div>
     </nav>
 
-    <section class="section content">
+    <div class="section content">
         {% block content %}
 
         {% endblock %}
-    </section>
+    </div>
 
     {% load static %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bulma-calendar@6.1.19/dist/js/bulma-calendar.min.js"></script>
     <script src="{% static 'skieasy_app/navbar.js' %}"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
 

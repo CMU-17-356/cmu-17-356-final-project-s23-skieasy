@@ -1,0 +1,11 @@
+{% extends "skieasy_app/base.html" %}
+
+{% block content %}
+    <form method="post" action="{% url 'create-equipment' %}">
+        <table>
+            {{form}}
+        </table>
+        {% csrf_token %}
+        <button type="submit">Create Equipment</button>
+    </form>
+{% endblock %}

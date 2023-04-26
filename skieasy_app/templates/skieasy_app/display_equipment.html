@@ -1,0 +1,22 @@
+{% extends "skieasy_app/base.html" %}
+
+{% block content %}
+    <div id="equipment">
+        {% for equip in items %}
+            <div id="equip-{{ forloop.counter }}">
+                <span> Title: {{ equip.title }} </span>
+                <span> Description: {{ equip.description }} </span>
+                <span> Price: {{ equip.price }} </span>
+                <span> Equipment Product Name: {{ equip.equipment_product_name }} </span>
+                <span> Bindings Product Name: {{ equip.bindings_product_name }} </span>
+                <span> Boots Product Name: {{ equip.boots_product_name }} </span>
+                <span> Skill Level: {{ equip.skill_level }} </span>
+                <span> Equipment Height: {{ equip.equipment_height }} </span>
+                <span> Boot Size: {{ equip.boot_size }} </span>
+                <span> Wear Status: {{ equip.wear_status }} </span>
+                <span> Equipment Type: {{ equip.equipment_type }} </span>
+                <a href="{% url 'equipment-details' equip.id %}"> View Equipment </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
