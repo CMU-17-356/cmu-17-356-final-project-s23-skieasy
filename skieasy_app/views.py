@@ -104,11 +104,8 @@ def listing(request):
         'length': '1',
     }
     return HttpResponse(template.render(context, request))
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 93d682138108c58680730d6a580412bb7e56dee5
 
 @login_required
 def display_equipment(request):
