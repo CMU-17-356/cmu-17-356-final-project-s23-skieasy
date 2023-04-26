@@ -1,0 +1,12 @@
+{% extends "skieasy_app/base.html" %}
+
+{% block content %}
+    <h3> Create Listing for {{ title }} </h3>
+    <form method="post" action="{% url 'create-listing' equip_id%}">
+        <table>
+            {{form}}
+        </table>
+        {% csrf_token %}
+        <button type="submit">Create Listing</button>
+    </form>
+{% endblock %}
