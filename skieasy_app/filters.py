@@ -2,7 +2,7 @@ import django_filters
 from django.db.models import Q, Case, When, Value, CharField
 
 
-from .models import Equipment, EquipmentListing
+from .models import Equipment
 
 
 class EquipmentFilter(django_filters.FilterSet):
