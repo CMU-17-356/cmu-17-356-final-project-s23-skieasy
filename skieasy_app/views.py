@@ -177,7 +177,7 @@ def listing(request, id):
                 "equipment_listings": equip.equipment_listings,
                 "current_user": request.user.id,
                 },
-            }
+                }
     return HttpResponse(template.render(context, request))
 
 
