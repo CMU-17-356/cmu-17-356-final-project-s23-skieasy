@@ -157,7 +157,7 @@ def listing(request, id):
     else:
         img = [val.image for val in equip_images]
 
-    context = {'listing':{
+    context = {'listing': {
                 "id": equip.id,
                 "title": equip.title,
                 "description": equip.description,
