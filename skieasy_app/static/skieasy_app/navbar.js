@@ -33,6 +33,7 @@ $(document).ready(function() {
 
   });
 
+  // Initialize the carousel for each card
   $('.carousel').slick({
     autoplay: false,
     dots: true,

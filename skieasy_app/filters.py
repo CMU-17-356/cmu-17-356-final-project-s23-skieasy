@@ -71,7 +71,6 @@ class EquipmentFilter(django_filters.FilterSet):
     class Meta:
         model = Equipment
         fields = [
-            # default filter for a field will match 'exact'
             'equipment_type',
             'wear_status',
             'boot_size',

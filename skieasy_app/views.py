@@ -1,6 +1,7 @@
 
 from skieasy_app.forms import ProfileForm, EquipmentListingForm, EquipmentForm
-from skieasy_app.models import Profile, Equipment, EquipmentListing, NEIGHBORHOOD_CHOICES
+from skieasy_app.models import Profile, Equipment, EquipmentListing
+from skieasy_app.models import NEIGHBORHOOD_CHOICES
 from skieasy_app.filters import EquipmentFilter
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse
@@ -32,7 +33,7 @@ def home_query_generator(request):
     Function takes the 'POST' to the filter component, executes
     business logic to create query parameters based on the filter
     form inputs, and then redirects to the home page with query
-    parameters passed. 
+    parameters passed.
     '''
     query_params = {}
     boot_size_difference = 1
@@ -40,15 +41,19 @@ def home_query_generator(request):
 
     start_date = request.POST.get('start_date', None)
     if start_date and (not start_date == ''):
-        start_date = (datetime
-            .strptime(start_date, '%m/%d/%Y')
-            .strftime('%Y-%m-%d'))
+        start_date = (
+            datetime
+                .strptime(start_date, '%m/%d/%Y')
+                .strftime('%Y-%m-%d')
+        )
         query_params['start_date'] = start_date
     end_date = request.POST.get('end_date', None)
     if end_date and (not end_date == ''):
-        end_date = (datetime
-            .strptime(end_date, '%m/%d/%Y')
-            .strftime('%Y-%m-%d'))
+        end_date = (
+            datetime
+                .strptime(end_date, '%m/%d/%Y')
+                .strftime('%Y-%m-%d')
+        )
         query_params['end_date'] = end_date
     neighborhoods = []
     for (value, _enum) in NEIGHBORHOOD_CHOICES:

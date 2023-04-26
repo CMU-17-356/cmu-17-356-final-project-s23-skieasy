@@ -34,5 +34,4 @@ urlpatterns = [
     path('create-listing/<int:id>', views.create_listing, name='create-listing'),
     path('display-listing/<int:id>', views.display_listing, name='display-listing'),
     path('update-equipment/<int:id>', views.update_equipment, name='update-equipment')
-
 ]
