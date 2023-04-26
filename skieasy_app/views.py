@@ -70,11 +70,8 @@ def equipment_details(request, id):
     }
     context["equip"] = equip
     return render(request, 'skieasy_app/equip_details.html', context)
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 93d682138108c58680730d6a580412bb7e56dee5
+
 @login_required
 def listing(request):
     template = loader.get_template('skieasy_app/listing.html')
@@ -104,7 +101,6 @@ def listing(request):
         'length': '1',
     }
     return HttpResponse(template.render(context, request))
-
 
 
 @login_required
