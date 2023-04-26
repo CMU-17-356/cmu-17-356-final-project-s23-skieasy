@@ -153,10 +153,10 @@ def listing(request, id):
     equip = Equipment.objects.get(id=id)
     equip_images = EquipmentImage.objects.filter(equipment_id=1)
     if len(equip_images) == 0:
-        img=['https://via.placeholder.com/500' for i in range(4)]
+        img = ['https://via.placeholder.com/500' for i in range(4)]
     else:
         img = [val.image for val in equip_images]
-        
+
     context = {'listing':
                {
                 "id": equip.id,
@@ -177,7 +177,7 @@ def listing(request, id):
                 "equipment_listings": equip.equipment_listings,
                 "current_user": request.user.id,
                 },
-    }
+            }
     return HttpResponse(template.render(context, request))
 
 
