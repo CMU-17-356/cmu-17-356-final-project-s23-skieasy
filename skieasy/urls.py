@@ -23,6 +23,7 @@ urlpatterns = [
     path('', views.welcome, name='welcome'),
     path('register', views.register, name='register'),
     path('home', views.HomeView.as_view(), name='home'),
+    path('home_query_generator', views.home_query_generator, name='home_query_generator'),
     path('equipment-details/<int:id>', views.equipment_details, name="equipment-details"),
     path('manage', views.manage, name='manage'),
     path('create-equipment', views.create_equipment, name='create-equipment'),

@@ -58,6 +58,16 @@ class EquipmentFilter(django_filters.FilterSet):
         method='filter_neighborhood'
     )
 
+    '''
+    Pass gender query params to request equipment for a specific
+    gender.
+    Ex:
+    <url>?gender=Female => equipment that is for females
+    '''
+    gender = django_filters.CharFilter(
+        field_name='profile_id__gender'
+    )
+
     class Meta:
         model = Equipment
         fields = [

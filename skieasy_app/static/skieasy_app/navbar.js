@@ -23,10 +23,6 @@ $(document).ready(function() {
     tab.addClass("is-active");
 
     tabsContent.each((_index, content) => {
-      console.log(content);
-      console.log(content.id);
-      console.log(target);
-      console.log(content.id === target);
       if (content.id === target) {
         content.classList.remove("is-hidden");
       } else {

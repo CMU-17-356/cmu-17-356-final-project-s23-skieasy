@@ -1,9 +1,11 @@
 
 from skieasy_app.forms import ProfileForm, EquipmentListingForm, EquipmentForm
-from skieasy_app.models import Profile, Equipment, EquipmentListing
+from skieasy_app.models import Profile, Equipment, EquipmentListing, NEIGHBORHOOD_CHOICES
 from skieasy_app.filters import EquipmentFilter
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse
+from urllib.parse import urlencode
+from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
@@ -21,6 +23,69 @@ class HomeView(LoginRequiredMixin, FilterView):
     template_name = "skieasy_app/home.html"
     context_object_name = "listings"
     paginate_by = 12
+    ordering = ['profile_id']
+
+
+@login_required
+def home_query_generator(request):
+    '''
+    Function takes the 'POST' to the filter component, executes
+    business logic to create query parameters based on the filter
+    form inputs, and then redirects to the home page with query
+    parameters passed. 
+    '''
+    query_params = {}
+    boot_size_difference = 1
+    equipment_height_difference = 3
+
+    start_date = request.POST.get('start_date', None)
+    if start_date and (not start_date == ''):
+        start_date = (datetime
+            .strptime(start_date, '%m/%d/%Y')
+            .strftime('%Y-%m-%d'))
+        query_params['start_date'] = start_date
+    end_date = request.POST.get('end_date', None)
+    if end_date and (not end_date == ''):
+        end_date = (datetime
+            .strptime(end_date, '%m/%d/%Y')
+            .strftime('%Y-%m-%d'))
+        query_params['end_date'] = end_date
+    neighborhoods = []
+    for (value, _enum) in NEIGHBORHOOD_CHOICES:
+        neighborhood = request.POST.get(value, None)
+        if neighborhood:
+            neighborhoods.append(value)
+    if len(neighborhoods) > 0:
+        query_params['neighborhoods'] = ','.join(neighborhoods)
+    equipment_type = request.POST.get('equipment_type', None)
+    if equipment_type and (not equipment_type == 'Either'):
+        query_params['equipment_type'] = equipment_type
+    gender = request.POST.get('gender', None)
+    if gender and (not gender == 'Unspecified'):
+        query_params['gender'] = gender
+    min_price = request.POST.get('min_price', None)
+    if min_price and (not min_price == ''):
+        query_params['min_price'] = min_price
+    max_price = request.POST.get('max_price', None)
+    if max_price and (not max_price == ''):
+        query_params['max_price'] = max_price
+    equipment_height = request.POST.get('equipment_height', None)
+    allow_similar_heights = request.POST.get('allow_similar_heights', None)
+    if equipment_height and allow_similar_heights and (not equipment_height == ''):
+        query_params['min_equipment_height'] = float(equipment_height) - equipment_height_difference
+        query_params['max_equipment_height'] = float(equipment_height) + equipment_height_difference
+    elif equipment_height and (not equipment_height == ''):
+        query_params['equipment_height'] = equipment_height
+    boot_size = request.POST.get('boot_size', None)
+    allow_similar_sizes = request.POST.get('allow_similar_sizes', None)
+    if boot_size and allow_similar_sizes and (not boot_size == ''):
+        query_params['min_boot_size'] = float(boot_size) - boot_size_difference
+        query_params['max_boot_size'] = float(boot_size) + boot_size_difference
+    elif boot_size and (not boot_size == ''):
+        query_params['boot_size'] = boot_size
+
+    params = urlencode(query_params)
+    return redirect(reverse('home') + '?' + params)
 
 
 @login_required
