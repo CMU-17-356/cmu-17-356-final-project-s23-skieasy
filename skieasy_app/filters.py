@@ -2,7 +2,7 @@ import django_filters
 from django.db.models import Q, Case, When, Value, CharField
 
 
-from .models import Equipment, EquipmentListing
+from .models import Equipment
 
 
 class EquipmentFilter(django_filters.FilterSet):
@@ -58,10 +58,19 @@ class EquipmentFilter(django_filters.FilterSet):
         method='filter_neighborhood'
     )
 
+    '''
+    Pass gender query params to request equipment for a specific
+    gender.
+    Ex:
+    <url>?gender=Female => equipment that is for females
+    '''
+    gender = django_filters.CharFilter(
+        field_name='profile_id__gender'
+    )
+
     class Meta:
         model = Equipment
         fields = [
-            # default filter for a field will match 'exact'
             'equipment_type',
             'wear_status',
             'boot_size',

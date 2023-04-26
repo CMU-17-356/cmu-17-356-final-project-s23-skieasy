@@ -23,6 +23,7 @@ urlpatterns = [
     path('', views.welcome, name='welcome'),
     path('register', views.register, name='register'),
     path('home', views.HomeView.as_view(), name='home'),
+    path('home_query_generator', views.home_query_generator, name='home_query_generator'),
     path('equipment-details/<int:id>', views.equipment_details, name="equipment-details"),
     path('manage', views.manage, name='manage'),
     path('listing/<int:id>', views.listing, name='listing'),
@@ -34,5 +35,4 @@ urlpatterns = [
     path('create-listing/<int:id>', views.create_listing, name='create-listing'),
     path('display-listing/<int:id>', views.display_listing, name='display-listing'),
     path('update-equipment/<int:id>', views.update_equipment, name='update-equipment')
-
 ]
