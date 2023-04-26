@@ -75,7 +75,6 @@ def equipment_details(request, id):
 @login_required
 def listing(request, id):
     template = loader.get_template('skieasy_app/listing.html')
-    #TODO remove hardcode id
     equip = Equipment.objects.get(id=id)
     equip_images = EquipmentImage.objects.filter(equipment_id=1)
     print(len(equip_images))
