@@ -2,21 +2,27 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'skieasy_app/listing.css' %}" type="text/css">
 <div class="item-listing">
     <h1 class="listing-title">{{ listing.title }}</h1>
-    <div class="listing-content">
-      <div class="listing-image">
-        <img id="main-image" src="{{ listing.image }}" alt="Listing Image">
+    <div class="columns">
+      <div class="column is-4-fullhd is-4-widescreen is-half-tablet" >
         <!-- <img id="main-image" src="{{ listing.image }}" alt="Listing Image"> -->
+        <!-- <img id="main-image" src="{{ listing.image }}" alt="Listing Image"> -->
+        <div class="carousel" >
+                        
+          {% for image in listing.images %}
+              <img src={{ image }} alt="Main image">
+          {% endfor %}
+              
       </div>
-      <div class="listing-details">
+      </div>
+      
+      <div class="column">
           <div class="card-content">
             <div class="content">
-                <h4>{{ listing.title }}</h4>
-                <p class="subtitle is-5 mb-4"><strong>${{ listing.price }}</strong> day</p>
-                <p class="mb-1">{{ listing.equipment_listings.first.start_date|date:"M d" }} - {{ listing.equipment_listings.first.end_date|date:"M d" }}</p>
-                <p>{{ listing.profile_id.neighborhood }} Area</p>
+                <p class="subtitle is-5 mb-4">Price: <strong>${{ listing.price }}</strong> day</p>
+                <p class="mb-1"> Date: <strong>{{ listing.equipment_listings.first.start_date|date:"M d" }} - {{ listing.equipment_listings.first.end_date|date:"M d" }}</strong></p>
+                <p>Area: <strong>{{ listing.profile_id.neighborhood }}</strong></p>
                 <div class="is-flex is-justify-content-space-around is-flex-wrap-wrap">
                     <div class="tags has-addons mb-1">
                         <span class="tag">Equipment Height</span>
@@ -44,19 +50,12 @@
                     </div>
                 </div>
             </div>
-            <div class="listing-button">
-              <a href="#" class="btn">Rent Now</a>
+            <div >
+              <button class="button is-info" href="#" >Rent Now</a>
           </div>
         </div>
       </div>
 
-    </div>
-    <div class="listing-alternate-images">
-        <div class="image-tiles">
-            {% for image in listing.images %}
-                <img src="{{ image }}" alt="Alternate Image" onclick="changeMainImage('{{ image}}')">
-            {% endfor %}
-        </div>
     </div>
     <div class="listing-description">
       <h2>Description:</h2>
@@ -64,12 +63,6 @@
     </div>
 </div>
 
-<script>
-// Function to change the main product image
-function changeMainImage(imageSrc) {
-    document.getElementById('main-image').src = imageSrc;
-}
-</script>
 
 {% endblock %}
 
