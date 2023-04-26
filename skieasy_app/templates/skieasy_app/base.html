@@ -56,12 +56,20 @@
                                     <div class="panel-block is-flex-wrap-wrap">
                                         <div class="control p-1">
                                             <div class="field">
-                                                <input id="pick-up-calendar" type="date" name="start_date">
+                                                <input id="pick-up-calendar" type="date" name="start_date" value="10/20/2004"
+                                                {% if request.GET.start_date and request.GET.start_date != '' %}
+                                                data-target="{{ request.GET.start_date }}"    
+                                                {% endif %}
+                                                >
                                             </div>
                                         </div>
                                         <div class="control p-1">
                                             <div class="field">
-                                                <input id="drop-off-calendar" type="date" name="end_date">
+                                                <input id="drop-off-calendar" type="date" name="end_date"
+                                                {% if request.GET.end_date and request.GET.end_date != '' %}
+                                                data-target="{{ request.GET.end_date }}"    
+                                                {% endif %}
+                                                >
                                             </div>
                                         </div>
                                     </div>
@@ -74,31 +82,59 @@
                                         <div class="control">
                                             <div class="field">
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Downtown">
+                                                    <input type="checkbox" name="Downtown" 
+                                                    {% if request.GET.neighborhoods and 'Downtown' in request.GET.neighborhoods %}
+                                                    checked
+                                                    {% endif %}
+                                                    >
                                                     Downtown
                                                 </label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="East Liberty">
+                                                    <input type="checkbox" name="East Liberty"
+                                                    {% if request.GET.neighborhoods and 'East Liberty' in request.GET.neighborhoods %}
+                                                    checked
+                                                    {% endif %}
+                                                    >
                                                     East Liberty
                                                 </label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Oakland">
+                                                    <input type="checkbox" name="Oakland"
+                                                    {% if request.GET.neighborhoods and 'Oakland' in request.GET.neighborhoods %}
+                                                    checked
+                                                    {% endif %}
+                                                    >
                                                     Oakland
                                                 </label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Shadyside">
+                                                    <input type="checkbox" name="Shadyside"
+                                                    {% if request.GET.neighborhoods and 'Shadyside' in request.GET.neighborhoods %}
+                                                    checked
+                                                    {% endif %}
+                                                    >
                                                     Shadyside
                                                 </label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Southside">
+                                                    <input type="checkbox" name="Southside"
+                                                    {% if request.GET.neighborhoods and 'Southside' in request.GET.neighborhoods %}
+                                                    checked
+                                                    {% endif %}
+                                                    >
                                                     Southside
                                                 </label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Squirrel Hill North">
+                                                    <input type="checkbox" name="Squirrel Hill North"
+                                                    {% if request.GET.neighborhoods and 'Squirrel Hill North' in request.GET.neighborhoods %}
+                                                    checked
+                                                    {% endif %}
+                                                    >
                                                     Squirrel Hill North
                                                 </label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Squirrel Hill South">
+                                                    <input type="checkbox" name="Squirrel Hill South"
+                                                    {% if request.GET.neighborhoods and 'Squirrel Hill South' in request.GET.neighborhoods %}
+                                                    checked
+                                                    {% endif %}
+                                                    >
                                                     Squirrel Hill South
                                                 </label>
                                             </div>
@@ -113,9 +149,22 @@
                                         <div class="control has-icons-left">
                                             <div class="select">
                                                     <select name="equipment_type">
-                                                        <option selected>Either</option>
-                                                        <option>Ski</option>
-                                                        <option>Snowboard</option>
+                                                        <option 
+                                                        {% if not request.GET.equipment_type or request.GET.equipment_type and request.GET.equipment_type == 'Either'%}
+                                                        selected
+                                                        {% endif %}
+                                                        >
+                                                        Either</option>
+                                                        <option
+                                                        {% if request.GET.equipment_type and request.GET.equipment_type == 'Ski'%}
+                                                        selected
+                                                        {% endif %}
+                                                        >Ski</option>
+                                                        <option
+                                                        {% if request.GET.equipment_type and request.GET.equipment_type == 'Snowboard'%}
+                                                        selected
+                                                        {% endif %}
+                                                        >Snowboard</option>
                                                     </select>
                                                 </div>
                                                 <div class="icon is-small is-left">
@@ -127,9 +176,21 @@
                                         <div class="control has-icons-left">
                                             <div class="select">
                                                     <select name="gender">
-                                                        <option selected>Unspecified</option>
-                                                        <option>Male</option>
-                                                        <option>Female</option>
+                                                        <option
+                                                        {% if not request.GET.gender or request.GET.gender and request.GET.gender == 'Unspecified'%}
+                                                        selected
+                                                        {% endif %}
+                                                        >Unspecified</option>
+                                                        <option
+                                                        {% if request.GET.gender and request.GET.gender == 'Male'%}
+                                                        selected
+                                                        {% endif %}
+                                                        >Male</option>
+                                                        <option
+                                                        {% if request.GET.gender and request.GET.gender == 'Female'%}
+                                                        selected
+                                                        {% endif %}
+                                                        >Female</option>
                                                     </select>
                                                 </div>
                                                 <div class="icon is-small is-left">
@@ -141,13 +202,21 @@
                                         <div class="field">
                                             <label class="label">Min-Max Price</label>
                                             <div class="control has-icons-left m-1">
-                                                <input class="input" type="text" placeholder="min" name="min_price">
+                                                <input class="input" type="text" placeholder="min" name="min_price"
+                                                {% if request.GET.min_price and request.GET.min_price != '' %}
+                                                value="{{ request.GET.min_price }}"
+                                                {% endif %}
+                                                >
                                                 <span class="icon is-small is-left">
                                                 <i class="fas fa-dollar-sign"></i>
                                                 </span>
                                             </div>
                                             <div class="control has-icons-left m-1">
-                                                <input class="input" type="text" placeholder="max" name="max_price">
+                                                <input class="input" type="text" placeholder="max" name="max_price"
+                                                {% if request.GET.max_price and request.GET.max_price != '' %}
+                                                value="{{ request.GET.max_price }}"
+                                                {% endif %}
+                                                >
                                                 <span class="icon is-small is-left">
                                                 <i class="fas fa-dollar-sign"></i>
                                                 </span>
@@ -158,7 +227,14 @@
                                         <div class="field">
                                             <label class="label">Equipment Height</label>
                                             <div class="control has-icons-left">
-                                                <input class="input" type="text" placeholder="inches" name="equipment_height">
+                                                <input class="input" type="text" placeholder="inches" name="equipment_height"
+                                                {% if request.GET.equipment_height and request.GET.equipment_height != '' %}
+                                                value="{{ request.GET.equipment_height }}" 
+                                                {% endif %}
+                                                {% if request.GET.min_equipment_height and request.GET.max_equipment_height %}
+                                                value="{{ request.GET.min_equipment_height|floatformat|add:3 }}" 
+                                                {% endif %}
+                                                >
                                                 <span class="icon is-small is-left">
                                                 <i class="fas fa-ruler-vertical"></i>
                                                 </span>
@@ -167,7 +243,11 @@
                                         <div class="field">
                                             <div class="control">
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="allow_similar_heights">
+                                                    <input type="checkbox" name="allow_similar_heights"
+                                                    {% if request.GET.min_equipment_height and request.GET.max_equipment_height %}
+                                                    checked 
+                                                    {% endif %}
+                                                    >
                                                     Allow similar heights?
                                                 </label>
                                             </div>
@@ -177,7 +257,14 @@
                                         <div class="field">
                                             <label class="label">Boot Size</label>
                                             <div class="control has-icons-left">
-                                                <input class="input" type="text" placeholder="in US sizes" name="boot_size">
+                                                <input class="input" type="text" placeholder="in US sizes" name="boot_size"
+                                                {% if request.GET.boot_size and request.GET.boot_size != '' %}
+                                                value="{{ request.GET.boot_size }}" 
+                                                {% endif %}
+                                                {% if request.GET.min_boot_size and request.GET.max_boot_size %}
+                                                value="{{ request.GET.min_boot_size|floatformat|add:1 }}" 
+                                                {% endif %}
+                                                >
                                                 <span class="icon is-small is-left">
                                                 <i class="fas fa-shoe-prints"></i>
                                                 </span>
@@ -186,7 +273,11 @@
                                         <div class="field">
                                             <div class="control">
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="allow_similar_sizes">
+                                                    <input type="checkbox" name="allow_similar_sizes"
+                                                    {% if request.GET.min_boot_size and request.GET.max_boot_size %}
+                                                    checked
+                                                    {% endif %}
+                                                    >
                                                     Allow close sizes?
                                                 </label>
                                             </div>
