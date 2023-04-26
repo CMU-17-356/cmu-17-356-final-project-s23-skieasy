@@ -1,4 +1,4 @@
-
+from skieasy_app.models import EquipmentImage
 from skieasy_app.forms import ProfileForm, EquipmentListingForm, EquipmentForm
 from skieasy_app.models import Profile, Equipment, EquipmentListing
 from skieasy_app.filters import EquipmentFilter
@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse
 
 from django.contrib.auth.decorators import login_required
+from django.template import loader
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
@@ -69,6 +70,37 @@ def equipment_details(request, id):
     }
     context["equip"] = equip
     return render(request, 'skieasy_app/equip_details.html', context)
+
+
+@login_required
+def listing(request):
+    template = loader.get_template('skieasy_app/listing.html')
+    # equipmentlisting = EquipmentListing.objects.filter(id=1).values()
+    # if len(equipmentlisting) > 0:
+    #     equipmentlisting = equipmentlisting[0]
+    # else:
+    #     return HttpResponse("No equipment listing found")
+    # images = EquipmentImages.objects.filter
+    # (equipmentId=equipmentlisting.equipmentId).values()[:4]
+    # equipment = Equipment.objects.filter
+    # (id=equipmentlisting.equipmentId).values()[0]
+    # context = {
+    #     'title': 'The best skis ever',
+    #     'description': equipment.description,
+    #     'price': equipment.price,
+    #     'quantity': '1',
+    #     'images': images,
+    #     'length': '1',
+    # }
+    context = {
+        'title': 'The best skis ever',
+        'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing',
+        'price': '100',
+        'quantity': '1',
+        'image': 'https://picsum.photos/id/3/400/400',
+        'length': '1',
+    }
+    return HttpResponse(template.render(context, request))
 
 
 @login_required

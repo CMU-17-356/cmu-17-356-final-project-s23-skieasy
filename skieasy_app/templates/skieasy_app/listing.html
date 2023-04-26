@@ -1,0 +1,62 @@
+{% extends "skieasy_app/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'skieasy_app/listing.css' %}" type="text/css">
+<div class="item-listing">
+    <h1 class="listing-title">{{ title }}</h1>
+    <div class="listing-content">
+      <div class="listing-image">
+        <!-- <img id="main-image" src=" images[0].image " alt="Listing Image"> -->
+        <img id="main-image" src="{{ image }}" alt="Listing Image">
+      </div>
+      <div class="listing-details">
+        <div class="listing-price">
+          <h2>Price:</h2>
+          <p>${{ price }}</p>
+        </div>
+        <div class="listing-quantity">
+            <h2>Quantity:</h2>
+            <p>{{ quantity }}</p>
+        </div>
+        <div class="listing-length">
+            <h2>Length:</h2>
+            <p>{{ length }} day(s)</p>
+        </div>
+        <div class="listing-button">
+            <a href="#" class="btn">Rent Now</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="listing-alternate-images">
+        <div class="image-tiles">
+          <img id="alt-1" src="https://picsum.photos/id/23/400/400" alt="Alternate Image 1" onclick="changeMainImage('https://picsum.photos/id/23/400/400')">
+          <img id="alt-2" src="https://picsum.photos/id/27/400/400" alt="Alternate Image 2" onclick="changeMainImage('https://picsum.photos/id/27/400/400')">
+          <img id="alt-3" src="https://picsum.photos/id/37/400/400" alt="Alternate Image 3" onclick="changeMainImage('https://picsum.photos/id/37/400/400')">
+          <img id="alt-4" src="https://picsum.photos/id/3/400/400" alt="Alternate Image 4" onclick="changeMainImage('https://picsum.photos/id/3/400/400')">
+<!-- 
+            { % for image in images % }
+                <img src="{{ image.image }}" alt="Alternate Image" onclick="changeMainImage('{{ image.image}}')">
+            { % endfor % } -->
+        </div>
+    </div>
+    <div class="listing-description">
+      <h2>Description:</h2>
+      <p>{{ description }}</p>
+    </div>
+</div>
+
+<script>
+// Function to change the main product image
+function changeMainImage(imageSrc) {
+    document.getElementById('main-image').src = imageSrc;
+}
+</script>
+
+{% endblock %}
+
+
+
+
+
