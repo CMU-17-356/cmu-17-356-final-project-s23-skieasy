@@ -43,16 +43,16 @@ def home_query_generator(request):
     if start_date and (not start_date == ''):
         start_date = (
             datetime
-                .strptime(start_date, '%m/%d/%Y')
-                .strftime('%Y-%m-%d')
+            .strptime(start_date, '%m/%d/%Y')
+            .strftime('%Y-%m-%d')
         )
         query_params['start_date'] = start_date
     end_date = request.POST.get('end_date', None)
     if end_date and (not end_date == ''):
         end_date = (
             datetime
-                .strptime(end_date, '%m/%d/%Y')
-                .strftime('%Y-%m-%d')
+            .strptime(end_date, '%m/%d/%Y')
+            .strftime('%Y-%m-%d')
         )
         query_params['end_date'] = end_date
     neighborhoods = []
@@ -77,15 +77,19 @@ def home_query_generator(request):
     equipment_height = request.POST.get('equipment_height', None)
     allow_similar_heights = request.POST.get('allow_similar_heights', None)
     if equipment_height and allow_similar_heights and (not equipment_height == ''):
-        query_params['min_equipment_height'] = float(equipment_height) - equipment_height_difference
-        query_params['max_equipment_height'] = float(equipment_height) + equipment_height_difference
+        query_params['min_equipment_height'] \
+            = float(equipment_height) - equipment_height_difference
+        query_params['max_equipment_height'] \
+            = float(equipment_height) + equipment_height_difference
     elif equipment_height and (not equipment_height == ''):
         query_params['equipment_height'] = equipment_height
     boot_size = request.POST.get('boot_size', None)
     allow_similar_sizes = request.POST.get('allow_similar_sizes', None)
     if boot_size and allow_similar_sizes and (not boot_size == ''):
-        query_params['min_boot_size'] = float(boot_size) - boot_size_difference
-        query_params['max_boot_size'] = float(boot_size) + boot_size_difference
+        query_params['min_boot_size'] = \
+            float(boot_size) - boot_size_difference
+        query_params['max_boot_size'] = \
+            float(boot_size) + boot_size_difference
     elif boot_size and (not boot_size == ''):
         query_params['boot_size'] = boot_size
 
