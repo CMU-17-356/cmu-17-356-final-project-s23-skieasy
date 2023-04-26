@@ -1,4 +1,4 @@
-from skieasy_app.models import EquipmentImages
+from skieasy_app.models import EquipmentImage
 from django.template import loader
 from skieasy_app.forms import ProfileForm, EquipmentListingForm, EquipmentForm
 from skieasy_app.models import Profile, Equipment, EquipmentListing
