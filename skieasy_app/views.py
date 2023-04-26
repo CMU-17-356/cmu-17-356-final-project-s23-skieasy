@@ -157,8 +157,7 @@ def listing(request, id):
     else:
         img = [val.image for val in equip_images]
 
-    context = {'listing':
-               {
+    context = {'listing':{
                 "id": equip.id,
                 "title": equip.title,
                 "description": equip.description,
@@ -175,9 +174,7 @@ def listing(request, id):
                 "image": img[0],
                 "profile_id": equip.profile_id,
                 "equipment_listings": equip.equipment_listings,
-                "current_user": request.user.id,
-                },
-                }
+                "current_user": request.user.id}}
     return HttpResponse(template.render(context, request))
 
 
