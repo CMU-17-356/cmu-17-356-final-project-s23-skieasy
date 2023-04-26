@@ -76,13 +76,13 @@ def home_query_generator(request):
         query_params['max_price'] = max_price
     equipment_height = request.POST.get('equipment_height', None)
     allow_similar_heights = request.POST.get('allow_similar_heights', None)
-    if equipment_height and allow_similar_heights and \
-        (not equipment_height == ''):
-            query_params['min_equipment_height'] \
-                = float(equipment_height) - equipment_height_difference
-            query_params['max_equipment_height'] \
-                = float(equipment_height) + equipment_height_difference
-    elif equipment_height and (not equipment_height == ''):
+    not_empty = (not equipment_height == '')
+    if equipment_height and allow_similar_heights and not_empty:
+        query_params['min_equipment_height'] \
+            = float(equipment_height) - equipment_height_difference
+        query_params['max_equipment_height'] \
+            = float(equipment_height) + equipment_height_difference
+    elif equipment_height and not_empty:
         query_params['equipment_height'] = equipment_height
     boot_size = request.POST.get('boot_size', None)
     allow_similar_sizes = request.POST.get('allow_similar_sizes', None)
