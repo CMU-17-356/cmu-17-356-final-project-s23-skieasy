@@ -4,46 +4,63 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'skieasy_app/listing.css' %}" type="text/css">
 <div class="item-listing">
-    <h1 class="listing-title">{{ title }}</h1>
+    <h1 class="listing-title">{{ listing.title }}</h1>
     <div class="listing-content">
       <div class="listing-image">
-        <!-- <img id="main-image" src=" images[0].image " alt="Listing Image"> -->
-        <img id="main-image" src="{{ image }}" alt="Listing Image">
+        <img id="main-image" src="{{ listing.image }}" alt="Listing Image">
+        <!-- <img id="main-image" src="{{ listing.image }}" alt="Listing Image"> -->
       </div>
       <div class="listing-details">
-        <div class="listing-price">
-          <h2>Price:</h2>
-          <p>${{ price }}</p>
-        </div>
-        <div class="listing-quantity">
-            <h2>Quantity:</h2>
-            <p>{{ quantity }}</p>
-        </div>
-        <div class="listing-length">
-            <h2>Length:</h2>
-            <p>{{ length }} day(s)</p>
-        </div>
-        <div class="listing-button">
-            <a href="#" class="btn">Rent Now</a>
+          <div class="card-content">
+            <div class="content">
+                <h4>{{ listing.title }}</h4>
+                <p class="subtitle is-5 mb-4"><strong>${{ listing.price }}</strong> day</p>
+                <p class="mb-1">{{ listing.equipment_listings.first.start_date|date:"M d" }} - {{ listing.equipment_listings.first.end_date|date:"M d" }}</p>
+                <p>{{ listing.profile_id.neighborhood }} Area</p>
+                <div class="is-flex is-justify-content-space-around is-flex-wrap-wrap">
+                    <div class="tags has-addons mb-1">
+                        <span class="tag">Equipment Height</span>
+                        <span class="tag is-link">{{ listing.equipment_height }}<em>″</em></span>
+                    </div>
+                    <div class="tags has-addons mb-1">
+                        <span class="tag">Boot Size</span>
+                        <span class="tag is-info">{{ listing.boot_size }}<em><sub>&nbsp;US</sub></em></span>
+                    </div>
+                    <div class="tags has-addons mb-1">
+                        <span class="tag">Type</span>
+                        <span class="tag is-primary">{{ listing.equipment_type }}</span>
+                    </div>
+                    <div class="tags has-addons mb-1">
+                        <span class="tag">Gender</span>
+                        <span class="tag is-white" style="border: 1px solid #CDCDCD;">{{ listing.profile_id.gender }}</span>
+                    </div>
+                    <div class="tags has-addons mb-1">
+                        <span class="tag">Condition</span>
+                        <span class="tag is-warning">{{ listing.wear_status }}</span>
+                    </div>
+                    <div class="tags has-addons mb-1">
+                        <span class="tag">Skill Level</span>
+                        <span class="tag is-danger">{{ listing.skill_level }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="listing-button">
+              <a href="#" class="btn">Rent Now</a>
+          </div>
         </div>
       </div>
 
     </div>
     <div class="listing-alternate-images">
         <div class="image-tiles">
-          <img id="alt-1" src="https://picsum.photos/id/23/400/400" alt="Alternate Image 1" onclick="changeMainImage('https://picsum.photos/id/23/400/400')">
-          <img id="alt-2" src="https://picsum.photos/id/27/400/400" alt="Alternate Image 2" onclick="changeMainImage('https://picsum.photos/id/27/400/400')">
-          <img id="alt-3" src="https://picsum.photos/id/37/400/400" alt="Alternate Image 3" onclick="changeMainImage('https://picsum.photos/id/37/400/400')">
-          <img id="alt-4" src="https://picsum.photos/id/3/400/400" alt="Alternate Image 4" onclick="changeMainImage('https://picsum.photos/id/3/400/400')">
-<!-- 
-            { % for image in images % }
-                <img src="{{ image.image }}" alt="Alternate Image" onclick="changeMainImage('{{ image.image}}')">
-            { % endfor % } -->
+            {% for image in listing.images %}
+                <img src="{{ image }}" alt="Alternate Image" onclick="changeMainImage('{{ image}}')">
+            {% endfor %}
         </div>
     </div>
     <div class="listing-description">
       <h2>Description:</h2>
-      <p>{{ description }}</p>
+      <p>{{ listing.description }}</p>
     </div>
 </div>
 
