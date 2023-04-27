@@ -23,10 +23,6 @@ $(document).ready(function() {
     tab.addClass("is-active");
 
     tabsContent.each((_index, content) => {
-      console.log(content);
-      console.log(content.id);
-      console.log(target);
-      console.log(content.id === target);
       if (content.id === target) {
         content.classList.remove("is-hidden");
       } else {
@@ -37,23 +33,29 @@ $(document).ready(function() {
 
   });
 
+  // Initialize the carousel for each card
   $('.carousel').slick({
     autoplay: false,
     dots: true,
     arrows: true,
   });
 
+  const startDate = $('#pick-up-calendar').data("target");
+  const endDate = $('#drop-off-calendar').data("target");
+
   // Initialize all input of type date
   var calendars = bulmaCalendar.attach('#pick-up-calendar', {
     labelFrom: "Pick-Up",
     color: "info",
     showHeader: false,
+    startDate: startDate ?? undefined,
   });
 
   calendars.push(bulmaCalendar.attach('#drop-off-calendar', {
     labelFrom: "Drop-Off",
     color: "info",
     showHeader: false,
+    startDate: endDate ?? undefined,
   }));
 
   // Loop on each calendar initialized
