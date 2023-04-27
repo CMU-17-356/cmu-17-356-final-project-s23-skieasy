@@ -8,17 +8,18 @@
             <div class="card">
                 <div class="card-image">
                     <div class="carousel">
-                        
                         {% for image in listing.equipmentimages_set.all %}
-                            <div class="carousel-item image"><img src={{ image.image.url }}></div>
+                            <img src={{ userFile.image.url }} alt="Placeholder image">
                         {% endfor %}
                             
                         <div class="carousel-item image"><img src="https://via.placeholder.com/500"></div>
                         <div class="carousel-item image"><img src="https://via.placeholder.com/500"></div>
                         <div class="carousel-item image"><img src="https://via.placeholder.com/500"></div>
                     </div>
+
                 </div>
                 <div class="card-content">
+                    <a href="{% url 'listing' listing.id %}">
                     <div class="content">
                         <h4>{{ listing.title }}</h4>
                         <p class="subtitle is-5 mb-4"><strong>${{ listing.price }}</strong> day</p>
@@ -51,7 +52,10 @@
                             </div>
                         </div>
                     </div>
+                <span class="link"></span>
+                </a>
                 </div>
+
             </div>
         </div>
     {% endfor %}
@@ -76,4 +80,3 @@
 </div>
 
 {% endblock %}
-

@@ -148,33 +148,33 @@ def equipment_details(request, id):
 
 
 @login_required
-def listing(request):
+def listing(request, id):
     template = loader.get_template('skieasy_app/listing.html')
-    # equipmentlisting = EquipmentListing.objects.filter(id=1).values()
-    # if len(equipmentlisting) > 0:
-    #     equipmentlisting = equipmentlisting[0]
-    # else:
-    #     return HttpResponse("No equipment listing found")
-    # images = EquipmentImages.objects.filter
-    # (equipmentId=equipmentlisting.equipmentId).values()[:4]
-    # equipment = Equipment.objects.filter
-    # (id=equipmentlisting.equipmentId).values()[0]
-    # context = {
-    #     'title': 'The best skis ever',
-    #     'description': equipment.description,
-    #     'price': equipment.price,
-    #     'quantity': '1',
-    #     'images': images,
-    #     'length': '1',
-    # }
-    context = {
-        'title': 'The best skis ever',
-        'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-        'price': '100',
-        'quantity': '1',
-        'image': 'https://picsum.photos/id/3/400/400',
-        'length': '1',
-    }
+    equip = Equipment.objects.get(id=id)
+    equip_images = EquipmentImage.objects.filter(equipment_id=1)
+    if len(equip_images) == 0:
+        img = ['https://via.placeholder.com/500' for i in range(4)]
+    else:
+        img = [val.image for val in equip_images]
+
+    context = {'listing': {
+                "id": equip.id,
+                "title": equip.title,
+                "description": equip.description,
+                "price": equip.price,
+                "equipment_product_name": equip.equipment_product_name,
+                "bindings_product_name": equip.bindings_product_name,
+                "boots_product_name": equip.boots_product_name,
+                "skill_level": equip.skill_level,
+                "equipment_height": equip.equipment_height,
+                "boot_size": equip.boot_size,
+                "wear_status": equip.wear_status,
+                "equipment_type": equip.equipment_type,
+                "images": img,
+                "image": img[0],
+                "profile_id": equip.profile_id,
+                "equipment_listings": equip.equipment_listings,
+                "current_user": request.user.id}}
     return HttpResponse(template.render(context, request))
 
 
