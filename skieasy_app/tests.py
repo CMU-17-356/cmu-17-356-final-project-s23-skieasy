@@ -197,7 +197,7 @@ class EquipmentFilterTest(TestCase):
         )
         self.assertEqual(len(filtered.qs), 2)
         self.assertEqual(set(filtered.qs), {self.robyn_board, self.tyler_ski})
- 
+
     def test_equipment_type_filter_either(self):
         request = self.factory.get(
             path='/home',
@@ -353,7 +353,7 @@ class EquipmentFilterTest(TestCase):
         )
         self.assertEqual(len(filtered.qs), 1)
         self.assertEqual(set(filtered.qs), {self.robyn_board})
- 
+
     def test_boot_size_filter_match_ski(self):
         request = self.factory.get(
             path='/home',
@@ -470,7 +470,7 @@ class EquipmentFilterTest(TestCase):
         )
         self.assertEqual(len(filtered.qs), 0)
         self.assertEqual(set(filtered.qs), set())
- 
+
     def test_max_boot_size_filter_low(self):
         request = self.factory.get(
             path='/home',
@@ -509,7 +509,7 @@ class EquipmentFilterTest(TestCase):
         )
         self.assertEqual(len(filtered.qs), 1)
         self.assertEqual(set(filtered.qs), {self.robyn_board})
- 
+
     def test_max_boot_size_filter_high_boundary(self):
         request = self.factory.get(
             path='/home',
