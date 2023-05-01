@@ -363,3 +363,11 @@ def rent_listing(request, id):
     
     return render(request, 'skieasy_app/rented.html', context)
 
+    return redirect(display_equipment)
+
+
+@login_required
+def delete_equipment(request, id):
+    Equipment.objects.filter(id=id).delete()
+    return redirect(display_equipment)
+

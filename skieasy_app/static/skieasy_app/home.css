@@ -5,3 +5,8 @@
 .slick-dots {
     margin: 0 !important;
 }
+
+.listing-link {
+    color: inherit;
+    text-decoration: none;
+}
