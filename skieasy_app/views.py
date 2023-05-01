@@ -301,3 +301,9 @@ def update_equipment(request, id):
     form.save()
 
     return redirect(display_equipment)
+
+
+@login_required
+def delete_equipment(request, id):
+    Equipment.objects.filter(id=id).delete()
+    return redirect(display_equipment)
