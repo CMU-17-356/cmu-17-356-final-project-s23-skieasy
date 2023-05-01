@@ -1,0 +1,12 @@
+{% extends "skieasy_app/base.html" %}
+
+{% block content %}
+    {{ title }}'s Listing
+    <form method="post" action="{% url 'update-listing' list_id %}">
+        <table>
+            {{form}}
+        </table>
+        {% csrf_token %}
+        <button type="submit">Update Listing</button>
+    </form>
+{% endblock %}

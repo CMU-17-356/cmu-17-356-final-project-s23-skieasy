@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from phone_field import PhoneField
 
 NEIGHBORHOOD_CHOICES = (
     ('Shadyside', 'SHADYSIDE'),
@@ -43,6 +43,7 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=50)
+    phone_number = PhoneField(blank=True, help_text='Contact phone number')
     neighborhood = models.CharField(
         max_length=25,
         choices=NEIGHBORHOOD_CHOICES,

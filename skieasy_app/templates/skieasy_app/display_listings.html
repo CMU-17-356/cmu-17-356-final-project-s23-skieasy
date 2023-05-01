@@ -7,6 +7,7 @@
             <div id="list-{{ forloop.counter }}">
                 <span> Start Date: {{ list.start_date }} </span>
                 <span> End Date: {{ list.end_date }} </span>
+                <a href="{% url 'update-listing' list.id %}"> Update Listing </a>
             </div>
         {% endfor %}
     </div>
