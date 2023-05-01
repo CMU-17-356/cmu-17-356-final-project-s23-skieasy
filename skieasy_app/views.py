@@ -1,6 +1,7 @@
 from skieasy_app.models import EquipmentImage
 from skieasy_app.forms import ProfileForm, EquipmentListingForm, EquipmentForm
-from skieasy_app.models import Profile, Equipment, EquipmentListing, EquipmentReservation
+from skieasy_app.models import Profile, Equipment, EquipmentListing
+from skieasy_app.models import EquipmentReservation
 from skieasy_app.models import NEIGHBORHOOD_CHOICES
 from skieasy_app.filters import EquipmentFilter
 from django.http import HttpResponse
@@ -327,10 +328,10 @@ def update_listing(request, id):
     context['title'] = li.equipment_id.title
     context['list_id'] = id
     context['form'] = EquipmentListingForm()
-    
+
     if (request.method == "GET"):
         return render(request, 'skieasy_app/update_listing.html', context)
-    
+
     form = EquipmentListingForm(request.POST)
     if not form.is_valid():
         context['form'] = form
@@ -342,6 +343,7 @@ def update_listing(request, id):
 
     return redirect(display_listing, id=id)
 
+
 @login_required
 def rent_listing(request, id):
     context = {}
@@ -352,14 +354,13 @@ def rent_listing(request, id):
     context["phone"] = listing.profile_id.phone_number
 
     new_res = EquipmentReservation(
-        equipment_id = listing.equipment_id,
-        profile_id = Profile.objects.get(user=request.user),
-        start_date = listing.start_date,
-        end_date = listing.end_date
+        equipment_id=listing.equipment_id,
+        profile_id=Profile.objects.get(user=request.user),
+        start_date=listing.start_date,
+        end_date=listing.end_date
     )
 
     new_res.save()
     listing.delete()
-    
-    return render(request, 'skieasy_app/rented.html', context)
 
+    return render(request, 'skieasy_app/rented.html', context)
