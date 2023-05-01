@@ -13,7 +13,7 @@ from django.template import loader
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
-from django.http import HttpResponseNotFound
+
 
 def welcome(request):
     return render(request, 'skieasy_app/welcome.html', {})
