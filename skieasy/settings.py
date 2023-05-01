@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'social_django',
     'django_filters',
+    'phone_field'
 ]
 
 MIDDLEWARE = [

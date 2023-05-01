@@ -34,5 +34,8 @@ urlpatterns = [
     path('logout', auth_views.logout_then_login, name='logout'),
     path('create-listing/<int:id>', views.create_listing, name='create-listing'),
     path('display-listing/<int:id>', views.display_listing, name='display-listing'),
-    path('update-equipment/<int:id>', views.update_equipment, name='update-equipment')
+    path('update-equipment/<int:id>', views.update_equipment, name='update-equipment'),
+    path('update-listing/<int:id>', views.update_listing, name='update-listing'),
+    path('rent-listing/<int:id>', views.rent_listing, name='rent-listing'),
+    
 ]
