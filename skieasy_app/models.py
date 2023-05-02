@@ -107,11 +107,13 @@ class EquipmentImage(models.Model):
     def __str__(self):
         return f'id={self.id}, equipment="{self.equipment_id}"'
 
+
 def validate_start_date(start_date):
     if start_date < timezone.now():
         raise ValidationError(
             'Start date must be greater than or equal to current date.'
         )
+
 
 def validate_end_date(end_date, start_date):
     if isinstance(end_date, datetime) and isinstance(start_date, datetime):

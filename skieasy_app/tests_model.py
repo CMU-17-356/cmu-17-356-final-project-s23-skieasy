@@ -276,7 +276,9 @@ class EquipmentTest(TestCase):
             self.fail("should not reach here")
         except ValidationError as error:
             self.assertTrue(
-                "at most 1000 characters" in error.message_dict['equipment_product_name'][0]
+                "at most 1000 characters"
+                in
+                error.message_dict['equipment_product_name'][0]
             )
 
     def test_bindings_product_long(self):
@@ -294,7 +296,9 @@ class EquipmentTest(TestCase):
             self.fail("should not reach here")
         except ValidationError as error:
             self.assertTrue(
-                "at most 1000 characters" in error.message_dict['bindings_product_name'][0]
+                "at most 1000 characters"
+                in
+                error.message_dict['bindings_product_name'][0]
             )
 
     def test_boots_product_long(self):
@@ -312,7 +316,9 @@ class EquipmentTest(TestCase):
             self.fail("should not reach here")
         except ValidationError as error:
             self.assertTrue(
-                "at most 1000 characters" in error.message_dict['boots_product_name'][0]
+                "at most 1000 characters"
+                in
+                error.message_dict['boots_product_name'][0]
             )
 
     def test_skill_level_invalid(self):
@@ -349,7 +355,9 @@ class EquipmentTest(TestCase):
             self.fail("should not reach here")
         except ValidationError as error:
             self.assertTrue(
-                "no more than 2" in error.message_dict['equipment_height'][0]
+                "no more than 2" 
+                in
+                error.message_dict['equipment_height'][0]
             )
         try:
             Equipment(
@@ -365,7 +373,9 @@ class EquipmentTest(TestCase):
             self.fail("should not reach here")
         except ValidationError as error:
             self.assertTrue(
-                "must be a decimal" in error.message_dict['equipment_height'][0]
+                "must be a decimal"
+                in
+                error.message_dict['equipment_height'][0]
             )
 
     def test_boot_size_invalid(self):
@@ -488,7 +498,9 @@ class EquipmentListingTest(TestCase):
             self.fail("should not reach here")
         except ValidationError as error:
             self.assertTrue(
-                "must be in YYYY-MM-DD" in error.message_dict['start_date'][0]
+                "must be in YYYY-MM-DD"
+                in
+                error.message_dict['start_date'][0]
             )
 
     def test_end_date_invalid(self):
@@ -519,7 +531,9 @@ class EquipmentListingTest(TestCase):
             self.fail("should not reach here")
         except ValidationError as error:
             self.assertTrue(
-                "greater than or equal to current date" in error.message_dict['start_date'][0]
+                "greater than or equal to current date"
+                in
+                error.message_dict['start_date'][0]
             )
 
     def test_end_date_before_start(self):
@@ -534,7 +548,9 @@ class EquipmentListingTest(TestCase):
             self.fail("should not reach here")
         except ValidationError as error:
             self.assertTrue(
-                "greater than the start date" in error.message_dict['__all__'][0]
+                "greater than the start date"
+                in
+                error.message_dict['__all__'][0]
             )
 
 
@@ -633,7 +649,9 @@ class EquipmentReservationTest(TestCase):
             self.fail("should not reach here")
         except ValidationError as error:
             self.assertTrue(
-                "greater than or equal to current date" in error.message_dict['start_date'][0]
+                "greater than or equal to current date"
+                in
+                error.message_dict['start_date'][0]
             )
 
     def test_end_date_before_start(self):
@@ -648,5 +666,7 @@ class EquipmentReservationTest(TestCase):
             self.fail("should not reach here")
         except ValidationError as error:
             self.assertTrue(
-                "greater than the start date" in error.message_dict['__all__'][0]
+                "greater than the start date"
+                in
+                error.message_dict['__all__'][0]
             )
