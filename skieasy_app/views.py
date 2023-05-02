@@ -1,6 +1,7 @@
 from skieasy_app.models import EquipmentImage
 from skieasy_app.forms import ProfileForm, EquipmentListingForm, EquipmentForm
 from skieasy_app.models import Profile, Equipment, EquipmentListing
+from skieasy_app.models import EquipmentReservation
 from skieasy_app.models import NEIGHBORHOOD_CHOICES
 from skieasy_app.filters import EquipmentFilter
 from django.http import HttpResponse
@@ -111,6 +112,9 @@ def register(request):
         return render(request, 'skieasy_app/register.html', context)
 
     new_profile = Profile(user=request.user,
+                          first_name=form.cleaned_data['first_name'],
+                          last_name=form.cleaned_data['last_name'],
+                          phone_number=form.cleaned_data['phone_number'],
                           neighborhood=form.cleaned_data['neighborhood'],
                           height=form.cleaned_data['height'],
                           gender=form.cleaned_data['gender'],
@@ -152,6 +156,7 @@ def listing(request, id):
     template = loader.get_template('skieasy_app/listing.html')
     equip = Equipment.objects.get(id=id)
     equip_images = EquipmentImage.objects.filter(equipment_id=1)
+    lists = EquipmentListing.objects.filter(equipment_id=equip)
     if len(equip_images) == 0:
         img = ['https://via.placeholder.com/500' for i in range(4)]
     else:
@@ -175,6 +180,18 @@ def listing(request, id):
                 "profile_id": equip.profile_id,
                 "equipment_listings": equip.equipment_listings,
                 "current_user": request.user.id}}
+    if (len(lists) < 1):
+        context["bool_lists"] = 0
+    else:
+        listings = []
+        for lis in lists:
+            item = {
+                "id": lis.id,
+                "start_date": lis.start_date,
+                "end_date": lis.end_date,
+            }
+            listings.append(item)
+        context["listings"] = listings
     return HttpResponse(template.render(context, request))
 
 
@@ -213,6 +230,7 @@ def display_listing(request, id):
     listings = []
     for lis in listing:
         item = {
+            "id": lis.id,
             "start_date": lis.start_date,
             "end_date": lis.end_date,
         }
@@ -300,4 +318,61 @@ def update_equipment(request, id):
 
     form.save()
 
+    return redirect(equipment_details, id=id)
+
+
+@login_required
+def update_listing(request, id):
+    context = {}
+    li = EquipmentListing.objects.get(id=id)
+    context['title'] = li.equipment_id.title
+    context['list_id'] = id
+    context['form'] = EquipmentListingForm()
+
+    if (request.method == "GET"):
+        return render(request, 'skieasy_app/update_listing.html', context)
+
+    form = EquipmentListingForm(request.POST)
+    if not form.is_valid():
+        context['form'] = form
+        return render(request, 'skieasy_app/update_listing.html', context)
+
+    setattr(li, "start_date", form.cleaned_data['start_date'])
+    setattr(li, "end_date", form.cleaned_data['end_date'])
+    li.save()
+
+    return redirect(display_listing, id=id)
+
+
+@login_required
+def rent_listing(request, id):
+    context = {}
+    listing = EquipmentListing.objects.get(id=id)
+    context["title"] = listing.equipment_id.title
+    context["f_name"] = listing.profile_id.first_name
+    context["l_name"] = listing.profile_id.last_name
+    context["phone"] = listing.profile_id.phone_number
+
+    new_res = EquipmentReservation(
+        equipment_id=listing.equipment_id,
+        profile_id=Profile.objects.get(user=request.user),
+        start_date=listing.start_date,
+        end_date=listing.end_date
+    )
+
+    new_res.save()
+    listing.delete()
+
+    return redirect(display_equipment)
+
+
+@login_required
+def delete_equipment(request, id):
+    Equipment.objects.filter(id=id).delete()
+    return redirect(display_equipment)
+
+
+@login_required
+def delete_equipment(request, id):
+    Equipment.objects.filter(id=id).delete()
     return redirect(display_equipment)
