@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.forms import ValidationError
+from django.utils import timezone
 from phone_field import PhoneField
+from datetime import datetime
 
 NEIGHBORHOOD_CHOICES = (
     ('Shadyside', 'SHADYSIDE'),
@@ -105,6 +108,21 @@ class EquipmentImage(models.Model):
         return f'id={self.id}, equipment="{self.equipment_id}"'
 
 
+def validate_start_date(start_date):
+    if start_date < timezone.now():
+        raise ValidationError(
+            'Start date must be greater than or equal to current date.'
+        )
+
+
+def validate_end_date(end_date, start_date):
+    if isinstance(end_date, datetime) and isinstance(start_date, datetime):
+        if end_date <= start_date:
+            raise ValidationError(
+                'End date must be greater than the start date.'
+            )
+
+
 class EquipmentListing(models.Model):
     equipment_id = models.ForeignKey(
         Equipment,
@@ -112,18 +130,26 @@ class EquipmentListing(models.Model):
         related_name='equipment_listings'
     )
     profile_id = models.ForeignKey(Profile, on_delete=models.PROTECT)
-    start_date = models.DateTimeField()
+    start_date = models.DateTimeField(validators=[validate_start_date])
     end_date = models.DateTimeField()
 
     def __str__(self):
         return f'id={self.id}, equipment="{self.equipment_id}"'
+
+    def clean(self):
+        super().clean()
+        validate_end_date(self.end_date, self.start_date)
 
 
 class EquipmentReservation(models.Model):
     equipment_id = models.ForeignKey(Equipment, on_delete=models.PROTECT)
     profile_id = models.ForeignKey(Profile, on_delete=models.PROTECT)
-    start_date = models.DateTimeField()
+    start_date = models.DateTimeField(validators=[validate_start_date])
     end_date = models.DateTimeField()
 
     def __str__(self):
         return f'id={self.id}, equipment="{self.equipment_id}"'
+
+    def clean(self):
+        super().clean()
+        validate_end_date(self.end_date, self.start_date)
