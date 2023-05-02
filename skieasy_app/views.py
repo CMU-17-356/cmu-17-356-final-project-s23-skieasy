@@ -305,5 +305,8 @@ def update_equipment(request, id):
 
 @login_required
 def delete_equipment(request, id):
-    Equipment.objects.filter(id=id).delete()
+    equipment = Equipment.objects.filter(id=id)
+    equipment_listings = EquipmentListing.objects.filter(equipment_id=id)
+    equipment_listings.delete()    
+    equipment.delete()
     return redirect(display_equipment)
