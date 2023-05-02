@@ -4,9 +4,20 @@
 <h3> {{ title }}'s Listings </h3>
     <div id="listings">
         {% for list in listings %}
-            <div id="list-{{ forloop.counter }}">
-                <span> Start Date: {{ list.start_date }} </span>
-                <span> End Date: {{ list.end_date }} </span>
+            <div class="card mb-4">
+                <div class="card-content has-background-info-light">
+                    <div class="content " >
+                        <div id="list-{{ forloop.counter }}">
+                            <!-- <p> <strong> Date:</strong> {{ list.start_date }} </p>
+                            <p> <strong> Date: </strong>{{ list.end_date }} </p> -->
+                            <span class="tag">Start Date:</span>
+                            <span class="tag is-link">{{ list.start_date }}</span>
+                            <span class="tag">End Date:</span>
+                            <span class="tag is-link">{{ list.end_date }} </span> &nbsp;
+                            <a class="button is-warning" href="{% url 'update-listing' list.id %}"> Update Listing </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>

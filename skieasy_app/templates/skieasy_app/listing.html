@@ -21,7 +21,7 @@
           <div class="card-content">
             <div class="content">
                 <p class="subtitle is-5 mb-4">Price: <strong>${{ listing.price }}</strong> day</p>
-                <p class="mb-1"> Date: <strong>{{ listing.equipment_listings.first.start_date|date:"M d" }} - {{ listing.equipment_listings.first.end_date|date:"M d" }}</strong></p>
+                <!-- <p class="mb-1"> Date: <strong>{{ listing.equipment_listings.first.start_date|date:"M d" }} - {{ listing.equipment_listings.first.end_date|date:"M d" }}</strong></p> -->
                 <p>Area: <strong>{{ listing.profile_id.neighborhood }}</strong></p>
                 <div class="is-flex is-justify-content-space-around is-flex-wrap-wrap">
                     <div class="tags has-addons mb-1">
@@ -50,8 +50,22 @@
                     </div>
                 </div>
             </div>
-            <div >
-              <button class="button is-info" href="#" >Rent Now</a>
+            <div>
+                {% if bool_lists == 0 %}
+                    <h4>There are no available listings at this time for this equipment. Please come back some other time! </h4>
+                {% else %}
+                {% for l in listings %}
+                <table>
+                    <span class="tag">Start Date:</span>
+                    <span class="tag is-link">{{ l.start_date }}</span>
+                    <span class="tag">End Date:</span>
+                    <span class="tag is-link">{{ l.end_date }} </span> &nbsp;
+                <form action="{% url 'rent-listing' l.id %}">
+                    <button class="button is-primary">Rent Now</button>
+                </form>
+                </table>
+                {% endfor %}
+            {% endif %}
           </div>
         </div>
       </div>
