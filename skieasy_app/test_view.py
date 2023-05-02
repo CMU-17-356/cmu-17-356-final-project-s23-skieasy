@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
+
 def initiate_web_driver(link):
     '''Start the Chrome web driver and return the driver'''
 
@@ -8,6 +9,7 @@ def initiate_web_driver(link):
     driver.get(link)
 
     return driver
+
 
 def test_welcome_page():
     '''Test the view of the welcome page'''
@@ -43,9 +45,13 @@ def test_welcome_page():
     else:
         assert(False)
 
+    return True
+
+
 def main():
     '''Main function to run all tests'''
     test_welcome_page()
+
 
 if __name__ == "__main__":
     main()
