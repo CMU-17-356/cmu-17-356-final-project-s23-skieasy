@@ -33,4 +33,3 @@ whitenoise==6.3.0
 django-phone-field==1.8.1
 selenium==4.9.0
 beautifulsoup4==4.12.2
-webdriver-manager==3.8.6
