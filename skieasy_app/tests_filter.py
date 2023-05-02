@@ -1,5 +1,4 @@
 from django.test import TestCase, RequestFactory
-from unittest.mock import MagicMock
 
 from skieasy_app.filters import EquipmentFilter
 from skieasy_app.models import Equipment, Profile, User
