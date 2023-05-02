@@ -4,7 +4,13 @@ from django.test import TestCase
 from django.utils import timezone
 from decimal import Decimal
 
-from skieasy_app.models import Equipment, EquipmentListing, EquipmentReservation, Profile, User
+from skieasy_app.models import (
+    Equipment,
+    EquipmentListing,
+    EquipmentReservation,
+    Profile,
+    User,
+)
 
 
 class ProfileTest(TestCase):
@@ -355,7 +361,7 @@ class EquipmentTest(TestCase):
             self.fail("should not reach here")
         except ValidationError as error:
             self.assertTrue(
-                "no more than 2" 
+                "no more than 2"
                 in
                 error.message_dict['equipment_height'][0]
             )
