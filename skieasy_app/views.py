@@ -382,6 +382,6 @@ def delete_equipment(request, id):
 def delete_equipment(request, id):
     equipment = Equipment.objects.filter(id=id)
     equipment_listings = EquipmentListing.objects.filter(equipment_id=id)
-    equipment_listings.delete()    
+    equipment_listings.delete() 
     equipment.delete()
     return redirect(display_equipment)
