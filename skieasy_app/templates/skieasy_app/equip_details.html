@@ -2,7 +2,7 @@
 
 {% block content %}
     <div id="equipment">
-        <span> Title: {{ equip.title }} </span>
+        <!-- <span> Title: {{ equip.title }} </span>
         <span> Description: {{ equip.description }} </span>
         <span> Price: {{ equip.price }} </span>
         <span> Equipment Product Name: {{ equip.equipment_product_name }} </span>
@@ -12,10 +12,57 @@
         <span> Equipment Height: {{ equip.equipment_height }} </span>
         <span> Boot Size: {{ equip.boot_size }} </span>
         <span> Wear Status: {{ equip.wear_status }} </span>
-        <span> Equipment Type: {{ equip.equipment_type }} </span>
+        <span> Equipment Type: {{ equip.equipment_type }} </span> -->
+        <div class="card mb-4" >
+            <div class="card-header has-background-grey-lighter">
+                <div class="card-header-title ">
+                            <strong><span> {{ equip.title }} </span></strong>
+                </div>
+            </div>
+            <div class="card-content has-background-white-bis">
+              <div class="content">
+                <div id="equip-{{ forloop.counter }}">
+                    
+                    <p> <strong>Description:</strong>  {{ equip.description }} </p>
+                    <p> <strong>Price:</strong> {{ equip.price }} </p>
+                    <p> <strong> Equipment Product Name: </strong>{{ equip.equipment_product_name }}</p>
+                    <p> <strong> Bindings Product Name: </strong>{{ equip.bindings_product_name }}</p>
+                    <p> <strong> Boots Product Name: </strong>{{ equip.boots_product_name }}</p>
+
+                    <!-- <span> Equipment Product Name: {{ equip.equipment_product_name }} </span>
+                    <span> Bindings Product Name: {{ equip.bindings_product_name }} </span>
+                    <span> Boots Product Name: {{ equip.boots_product_name }} </span> -->
+                    <div class="is-flex is-justify-content-space-around is-flex-wrap-wrap">
+                        <div class="tags has-addons mb-1">
+                            <span class="tag">Equipment Height</span>
+                            <span class="tag is-link">{{ equip.equipment_height }}<em>″</em></span>
+                        </div>
+                        <div class="tags has-addons mb-1">
+                            <span class="tag">Boot Size</span>
+                            <span class="tag is-info">{{ equip.boot_size }}<em><sub>&nbsp;US</sub></em></span>
+                        </div>
+                        <div class="tags has-addons mb-1">
+                            <span class="tag">Type</span>
+                            <span class="tag is-primary">{{ equip.equipment_type }}</span>
+                        </div>
+                        <div class="tags has-addons mb-1">
+                            <span class="tag">Condition</span>
+                            <span class="tag is-warning">{{ equip.wear_status }}</span>
+                        </div>
+                        <div class="tags has-addons mb-1">
+                            <span class="tag">Skill Level</span>
+                            <span class="tag is-danger">{{ equip.skill_level }}</span>
+                        </div>
+                    </div>
+                    <a class="button is-primary" href="{% url 'create-listing' equip.id %}"> Create Listing </a>
+                    <a class="button is-link" href="{% url 'display-listing' equip.id %}"> Display Listing </a>
+                    <a class="button is-warning" href="{% url 'update-equipment' equip.id %}"> Update Equipment </a>
+                    
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
 
-    <a href="{% url 'create-listing' equip.id %}"> Create Listing </a>
-    <a href="{% url 'display-listing' equip.id %}"> Display Listing </a>
-    <a href="{% url 'update-equipment' equip.id %}"> Update Equipment </a>
+
 {% endblock %}
