@@ -9,8 +9,8 @@ def initiate_web_driver(link):
 
     return driver
 
-def test_home_page():
-    '''Test the view of the home page'''
+def test_welcome_page():
+    '''Test the view of the welcome page'''
 
     driver = initiate_web_driver("https://skieasy.fly.dev/")
     html = driver.page_source
@@ -45,7 +45,7 @@ def test_home_page():
 
 def main():
     '''Main function to run all tests'''
-    test_home_page()
+    test_welcome_page()
 
 if __name__ == "__main__":
     main()
