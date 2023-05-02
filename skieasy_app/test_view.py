@@ -39,7 +39,7 @@ def test_welcome_page():
             found_register_message = True
         if "Login" in heading_tag.text:
             found_login_message = True
-    
+
     if found_register_message and found_login_message:
         assert(True)
     else:
