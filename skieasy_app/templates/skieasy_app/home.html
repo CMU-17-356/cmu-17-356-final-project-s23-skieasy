@@ -2,19 +2,38 @@
 
 {% block content %}
 
+{% load equipment_extras %}
+
 <div class="columns is-multiline">
+    {% if listings|length == 0 %}
+        <div class="column">
+            <article class="message is-info">
+                <div class="message-header">
+                    <p class="m-0">No Equipment Found!</p>
+                </div>
+                <div class="message-body has-text-centered">
+                    <span class="icon-text is-align-items-center">
+                        <span class="icon is-large">
+                            <i class="fas fa-3x fa-frown-open"></i>
+                        </span>
+                        <span> Dang! We're sorry!</span>
+                    </span>
+                    <br>
+                    <br>
+                    <span>
+                    We weren't able to find any equipment for the given search request. Consider expanding your search using the <a id="dropdown-link">search bar</a> above, thanks!
+                    </span>
+                </div>
+            </article>
+        </div>
+    {% endif %}
+
     {% for listing in listings %}
         <div class="column is-3-fullhd is-4-widescreen is-half-tablet">
             <div class="card">
                 <div class="card-image">
                     <div class="carousel">
-                        {% for image in listing.equipmentimages_set.all %}
-                            <img src={{ userFile.image.url }} alt="Placeholder image">
-                        {% endfor %}
-                            
-                        <div class="carousel-item image"><img src="https://via.placeholder.com/500"></div>
-                        <div class="carousel-item image"><img src="https://via.placeholder.com/500"></div>
-                        <div class="carousel-item image"><img src="https://via.placeholder.com/500"></div>
+                        <img src="{% url 'photo' listing.id %}" alt="{{listing.title}} Image" width="200px"> 
                     </div>
 
                 </div>
@@ -23,7 +42,12 @@
                         <div class="content">
                             <h4>{{ listing.title }}</h4>
                             <p class="subtitle is-5 mb-4"><strong>${{ listing.price }}</strong> day</p>
-                            <p class="mb-1">{{ listing.equipment_listings.first.start_date|date:"M d" }} - {{ listing.equipment_listings.first.end_date|date:"M d" }}</p>
+                            {% if request.GET.start_date or request.GET.end_date%}
+                                {% overlap_generator listing request.GET.start_date request.GET.end_date as overlap%}
+                                <p class="mb-1">{{ overlap.0|date:"M d" }} - {{ overlap.1|date:"M d" }}</p>
+                            {% else %}
+                                <p class="mb-1">{{ listing.equipment_listings.first.start_date|date:"M d" }} - {{ listing.equipment_listings.first.end_date|date:"M d" }}</p>
+                            {% endif %}
                             <p>{{ listing.profile_id.neighborhood }} Area</p>
                             <div class="is-flex is-justify-content-space-around is-flex-wrap-wrap">
                                 <div class="tags has-addons mb-1">

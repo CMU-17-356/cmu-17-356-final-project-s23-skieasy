@@ -1,7 +1,7 @@
 {% extends "skieasy_app/base.html" %}
 
 {% block content %}
-    <form method="post" action="{% url 'create-equipment' %}">
+    <form method="post" enctype="multipart/form-data" action="{% url 'create-equipment' %}">
         <table>
             {{form}}
         </table>
