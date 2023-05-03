@@ -20,6 +20,10 @@ def __profile_check(action_function):
     def my_wrapper_function(request, *args, **kwargs):
         try:
             user = User.objects.get(id=request.user.id)
+            print("USER: ")
+            print(user)
+            print("PROFILE: ")
+            print(Profile.objects.filter(user=user))
             if (Profile.objects.filter(user=user).exists()):
                 return action_function(request, *args, **kwargs)
             else:
@@ -145,12 +149,6 @@ def register(request):
                           user_type=form.cleaned_data['user_type'])
     new_profile.save()
     return render(request, 'skieasy_app/home.html', {})
-
-
-@login_required
-@__profile_check
-def manage(request):
-    return render(request, 'skieasy_app/manage.html', {})
 
 
 @login_required

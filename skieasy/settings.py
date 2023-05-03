@@ -171,7 +171,7 @@ SKIEASY_USERS = os.environ.get("USERS", "")
 LOGIN_URL = '/oauth/login/google-oauth2/'
 
 # Default URL to redirect to after a user logs python manage.py makemigrations skieasy_appin.
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/home'
 
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL='/register'
 

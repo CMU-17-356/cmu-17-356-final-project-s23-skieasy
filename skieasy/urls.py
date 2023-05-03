@@ -25,7 +25,6 @@ urlpatterns = [
     path('home', views.HomeView.as_view(), name='home'),
     path('home_query_generator', views.home_query_generator, name='home_query_generator'),
     path('equipment-details/<int:id>', views.equipment_details, name="equipment-details"),
-    path('manage', views.manage, name='manage'),
     path('listing/<int:id>', views.listing, name='listing'),
     path('create-equipment', views.create_equipment, name='create-equipment'),
     path('display-equipment', views.display_equipment, name='display-equipment'),
