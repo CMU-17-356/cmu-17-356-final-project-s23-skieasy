@@ -155,6 +155,8 @@ def register(request):
 @__profile_check
 def equipment_details(request, id):
     e = Equipment.objects.get(id=id)
+    if (e.profile_id.user != request.user):
+        return redirect(display_equipment)
     context = {}
     equip = {
             "id": e.id,
@@ -333,6 +335,8 @@ def create_listing(request, id):
 @__profile_check
 def update_equipment(request, id):
     equip = Equipment.objects.get(id=id)
+    if (equip.profile_id.user != request.user):
+        return redirect(display_equipment)
     context = {}
     context['equip_id'] = id
     if (request.method == 'GET'):
@@ -342,7 +346,7 @@ def update_equipment(request, id):
     form = EquipmentForm(request.POST, request.FILES, instance=equip)
     context['form'] = form
 
-    if (not form.is_valid()):
+    if (not form.is_valid() or not bool(request.FILES)):
         return render(request, 'skieasy_app/update_equipment.html', context)
 
     equip.profile_id = Profile.objects.get(id=request.user.id)
@@ -370,6 +374,8 @@ def update_equipment(request, id):
 def update_listing(request, id):
     context = {}
     li = EquipmentListing.objects.get(id=id)
+    if (li.profile_id.user != request.user):
+        return redirect(display_equipment)
     context['title'] = li.equipment_id.title
     context['list_id'] = id
     context['form'] = EquipmentListingForm()
@@ -416,6 +422,8 @@ def rent_listing(request, id):
 @__profile_check
 def delete_equipment(request, id):
     equipment = Equipment.objects.filter(id=id)
+    if (equipment.profile_id.user != request.user):
+        return redirect(display_equipment)
     equipment_listings = EquipmentListing.objects.filter(equipment_id=id)
     equipment_listings.delete()
     equipment.delete()
