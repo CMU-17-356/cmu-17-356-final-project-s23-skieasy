@@ -33,13 +33,7 @@
             <div class="card">
                 <div class="card-image">
                     <div class="carousel">
-                        {% for image in listing.equipmentimages_set.all %}
-                            <img src={{ userFile.image.url }} alt="Placeholder image">
-                        {% endfor %}
-                            
-                        <div class="carousel-item image"><img src="https://via.placeholder.com/500"></div>
-                        <div class="carousel-item image"><img src="https://via.placeholder.com/500"></div>
-                        <div class="carousel-item image"><img src="https://via.placeholder.com/500"></div>
+                        <img src="{% url 'photo' listing.id %}" alt="{{listing.title}} Image" width="200px"> 
                     </div>
 
                 </div>

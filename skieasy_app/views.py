@@ -5,8 +5,8 @@ from skieasy_app.models import Profile, Equipment, EquipmentListing
 from skieasy_app.models import EquipmentReservation
 from skieasy_app.models import NEIGHBORHOOD_CHOICES
 from skieasy_app.filters import EquipmentFilter
-from django.http import HttpResponse
-from django.shortcuts import render, redirect, reverse
+from django.http import HttpResponse, Http404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from urllib.parse import urlencode
 from datetime import datetime
 
@@ -130,7 +130,7 @@ def register(request):
                           boot_size=form.cleaned_data['boot_size'],
                           user_type=form.cleaned_data['user_type'])
     new_profile.save()
-    return render(request, 'skieasy_app/home-listing.html', {})
+    return render(request, 'skieasy_app/home.html', {})
 
 
 @login_required
@@ -166,10 +166,6 @@ def listing(request, id):
     equip = Equipment.objects.get(id=id)
     equip_images = EquipmentImage.objects.filter(equipment_id=1)
     lists = EquipmentListing.objects.filter(equipment_id=equip)
-    if len(equip_images) == 0:
-        img = ['https://via.placeholder.com/500' for i in range(4)]
-    else:
-        img = [val.image for val in equip_images]
 
     context = {'listing': {
                 "id": equip.id,
@@ -184,8 +180,6 @@ def listing(request, id):
                 "boot_size": equip.boot_size,
                 "wear_status": equip.wear_status,
                 "equipment_type": equip.equipment_type,
-                "images": img,
-                "image": img[0],
                 "profile_id": equip.profile_id,
                 "equipment_listings": equip.equipment_listings,
                 "current_user": request.user.id}}
@@ -255,10 +249,13 @@ def create_equipment(request):
         context['form'] = EquipmentForm()
         return render(request, 'skieasy_app/create_equipment.html', context)
 
-    form = EquipmentForm(request.POST)
+    form = EquipmentForm(request.POST, request.FILES)
     context['form'] = form
 
     if (not form.is_valid()):
+        return render(request, 'skieasy_app/create_equipment.html', context)
+
+    if (form.cleaned_data["picture"] == 'default.png'):
         return render(request, 'skieasy_app/create_equipment.html', context)
 
     new_equip = Equipment(profile_id=Profile.objects.get(id=request.user.id),
@@ -276,7 +273,10 @@ def create_equipment(request):
                           ["equipment_height"],
                           boot_size=form.cleaned_data["boot_size"],
                           wear_status=form.cleaned_data["wear_status"],
-                          equipment_type=form.cleaned_data["equipment_type"])
+                          equipment_type=form.cleaned_data["equipment_type"],
+                          picture=form.cleaned_data["picture"],
+                          content_type=form.cleaned_data["picture"]
+                          .content_type)
 
     new_equip.save()
 
@@ -319,13 +319,28 @@ def update_equipment(request, id):
         context['form'] = EquipmentForm(instance=equip)
         return render(request, 'skieasy_app/update_equipment.html', context)
 
-    form = EquipmentForm(request.POST, instance=equip)
+    form = EquipmentForm(request.POST, request.FILES, instance=equip)
     context['form'] = form
 
     if (not form.is_valid()):
         return render(request, 'skieasy_app/update_equipment.html', context)
 
-    form.save()
+    equip.profile_id = Profile.objects.get(id=request.user.id)
+    equip.title = form.cleaned_data["title"]
+    equip.description = form.cleaned_data["description"]
+    equip.price = form.cleaned_data["price"]
+    equip.equipment_product_name = form.cleaned_data["equipment_product_name"]
+    equip.bindings_product_name = form.cleaned_data["bindings_product_name"]
+    equip.boots_product_name = form.cleaned_data["boots_product_name"]
+    equip.skill_level = form.cleaned_data["skill_level"]
+    equip.equipment_height = form.cleaned_data["equipment_height"]
+    equip.boot_size = form.cleaned_data["boot_size"]
+    equip.wear_status = form.cleaned_data["wear_status"]
+    equip.equipment_type = form.cleaned_data["equipment_type"]
+    equip.picture = form.cleaned_data["picture"]
+    equip.content_type = form.cleaned_data["picture"].content_type
+
+    equip.save()
 
     return redirect(equipment_details, id=id)
 
@@ -372,7 +387,7 @@ def rent_listing(request, id):
     new_res.save()
     listing.delete()
 
-    return redirect(display_equipment)
+    return render(request, 'skieasy_app/rented.html', context)
 
 
 @login_required
@@ -385,3 +400,13 @@ def delete_equipment(request, id):
 def delete_equipment(request, id):
     Equipment.objects.filter(id=id).delete()
     return redirect(display_equipment)
+
+
+@login_required
+def get_photo(request, id):
+    equip = get_object_or_404(Equipment, id=id)
+
+    if not equip.picture:
+        raise Http404
+
+    return HttpResponse(equip.picture, content_type=equip.content_type)
