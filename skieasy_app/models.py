@@ -94,7 +94,7 @@ class Equipment(models.Model):
         choices=USER_CHOICES,
         default='Ski'
     )
-    picture = models.FileField(blank=True)
+    picture = models.FileField(blank=False, default='default.png')
     content_type = models.CharField(max_length=50, default='jpg')
 
     def __str__(self):

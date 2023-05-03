@@ -18,6 +18,10 @@ class ProfileForm(forms.ModelForm):
 
 
 class EquipmentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["picture"].required = True
+
     class Meta:
         model = Equipment
         exclude = (

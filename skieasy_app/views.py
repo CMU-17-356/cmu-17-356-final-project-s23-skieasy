@@ -121,7 +121,7 @@ def register(request):
                           boot_size=form.cleaned_data['boot_size'],
                           user_type=form.cleaned_data['user_type'])
     new_profile.save()
-    return render(request, 'skieasy_app/home-listing.html', {})
+    return render(request, 'skieasy_app/home.html', {})
 
 
 @login_required
@@ -245,6 +245,9 @@ def create_equipment(request):
 
     if (not form.is_valid()):
         return render(request, 'skieasy_app/create_equipment.html', context)
+    
+    if (form.cleaned_data["picture"] == 'default.png'):
+        return render(request, 'skieasy_app/create_equipment.html', context)
 
     new_equip = Equipment(profile_id=Profile.objects.get(id=request.user.id),
                           title=form.cleaned_data["title"],
@@ -263,8 +266,8 @@ def create_equipment(request):
                           wear_status=form.cleaned_data["wear_status"],
                           equipment_type=form.cleaned_data["equipment_type"],
                           picture=form.cleaned_data["picture"],
-                          content_type=form.cleaned_data
-                          ["picture"].content_type)
+                          content_type=form.cleaned_data["picture"]
+                          .content_type)
 
     new_equip.save()
 
@@ -312,6 +315,9 @@ def update_equipment(request, id):
 
     if (not form.is_valid()):
         return render(request, 'skieasy_app/update_equipment.html', context)
+    
+    if (form.cleaned_data["picture"] == None):
+        return render(request, 'skieasy_app/create_equipment.html', context)
 
     equip.profile_id = Profile.objects.get(id=request.user.id)
     equip.title = form.cleaned_data["title"]
@@ -364,7 +370,6 @@ def rent_listing(request, id):
     context["f_name"] = listing.profile_id.first_name
     context["l_name"] = listing.profile_id.last_name
     context["phone"] = listing.profile_id.phone_number
-    equip_id = listing.equipment_id.id
 
     new_res = EquipmentReservation(
         equipment_id=listing.equipment_id,
@@ -376,7 +381,7 @@ def rent_listing(request, id):
     new_res.save()
     listing.delete()
 
-    return redirect(listing, equip_id)
+    return render(request, 'skieasy_app/rented.html', context)
 
 
 @login_required
