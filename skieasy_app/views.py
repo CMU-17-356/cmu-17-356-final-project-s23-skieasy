@@ -218,7 +218,7 @@ def listing(request, id):
 @login_required
 @__profile_check
 def display_equipment(request):
-    profile = Profile.objects.get(id=request.user.id)
+    profile = Profile.objects.get(user=request.user)
     equip = Equipment.objects.filter(profile_id=profile.id)
     context = {}
     items = []
@@ -278,7 +278,7 @@ def create_equipment(request):
     if (form.cleaned_data["picture"] == 'default.png'):
         return render(request, 'skieasy_app/create_equipment.html', context)
 
-    new_equip = Equipment(profile_id=Profile.objects.get(id=request.user.id),
+    new_equip = Equipment(profile_id=Profile.objects.get(user=request.user),
                           title=form.cleaned_data["title"],
                           description=form.cleaned_data["description"],
                           price=form.cleaned_data["price"],
@@ -321,7 +321,7 @@ def create_listing(request, id):
         return render(request, 'skieasy_app/create_listing.html', context)
 
     new_listing = EquipmentListing(
-        profile_id=Profile.objects.get(id=request.user.id),
+        profile_id=Profile.objects.get(user=request.user),
         equipment_id=equip,
         start_date=form.cleaned_data["start_date"],
         end_date=form.cleaned_data["end_date"])
@@ -349,7 +349,7 @@ def update_equipment(request, id):
     if (not form.is_valid() or not bool(request.FILES)):
         return render(request, 'skieasy_app/update_equipment.html', context)
 
-    equip.profile_id = Profile.objects.get(id=request.user.id)
+    equip.profile_id = Profile.objects.get(user=request.user)
     equip.title = form.cleaned_data["title"]
     equip.description = form.cleaned_data["description"]
     equip.price = form.cleaned_data["price"]
