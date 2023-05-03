@@ -22,6 +22,7 @@ class EquipmentForm(forms.ModelForm):
         model = Equipment
         exclude = (
             'profile_id',
+            'content_type'
         )
 
 
