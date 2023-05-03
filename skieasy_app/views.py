@@ -2,7 +2,7 @@ from django.db.models import Count
 from skieasy_app.models import EquipmentImage
 from skieasy_app.forms import ProfileForm, EquipmentListingForm, EquipmentForm
 from skieasy_app.models import Profile, Equipment, EquipmentListing
-from skieasy_app.models import EquipmentReservation
+from skieasy_app.models import EquipmentReservation, User
 from skieasy_app.models import NEIGHBORHOOD_CHOICES
 from skieasy_app.filters import EquipmentFilter
 from django.http import HttpResponse, Http404
@@ -14,6 +14,18 @@ from django.contrib.auth.decorators import login_required
 from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
+
+def __profile_check(action_function):
+    def my_wrapper_function(request, *args, **kwargs):
+        try:
+            user = User.objects.get(id=request.user.id)
+            if (Profile.objects.filter(user=user).exists()):
+                return action_function(request, *args, **kwargs)
+            else:
+                raise ValueError("Please Register")
+        except:
+            return redirect(reverse('register'))
+    return my_wrapper_function
 
 
 def welcome(request):
@@ -39,6 +51,7 @@ class HomeView(LoginRequiredMixin, FilterView):
 
 
 @login_required
+@__profile_check
 def home_query_generator(request):
     '''
     Function takes the 'POST' to the filter component, executes
@@ -134,11 +147,13 @@ def register(request):
 
 
 @login_required
+@__profile_check
 def manage(request):
     return render(request, 'skieasy_app/manage.html', {})
 
 
 @login_required
+@__profile_check
 def equipment_details(request, id):
     e = Equipment.objects.get(id=id)
     context = {}
@@ -161,6 +176,7 @@ def equipment_details(request, id):
 
 
 @login_required
+@__profile_check
 def listing(request, id):
     template = loader.get_template('skieasy_app/listing.html')
     equip = Equipment.objects.get(id=id)
@@ -199,6 +215,7 @@ def listing(request, id):
 
 
 @login_required
+@__profile_check
 def display_equipment(request):
     profile = Profile.objects.get(id=request.user.id)
     equip = Equipment.objects.filter(profile_id=profile.id)
@@ -225,6 +242,7 @@ def display_equipment(request):
 
 
 @login_required
+@__profile_check
 def display_listing(request, id):
     equip = Equipment.objects.get(id=id)
     listing = EquipmentListing.objects.filter(equipment_id=id)
@@ -243,6 +261,7 @@ def display_listing(request, id):
 
 
 @login_required
+@__profile_check
 def create_equipment(request):
     context = {}
     if (request.method == 'GET'):
@@ -284,6 +303,7 @@ def create_equipment(request):
 
 
 @login_required
+@__profile_check
 def create_listing(request, id):
     context = {}
     equip = Equipment.objects.get(id=id)
@@ -311,6 +331,7 @@ def create_listing(request, id):
 
 
 @login_required
+@__profile_check
 def update_equipment(request, id):
     equip = Equipment.objects.get(id=id)
     context = {}
@@ -346,6 +367,7 @@ def update_equipment(request, id):
 
 
 @login_required
+@__profile_check
 def update_listing(request, id):
     context = {}
     li = EquipmentListing.objects.get(id=id)
@@ -369,6 +391,7 @@ def update_listing(request, id):
 
 
 @login_required
+@__profile_check
 def rent_listing(request, id):
     context = {}
     listing = EquipmentListing.objects.get(id=id)
@@ -391,12 +414,7 @@ def rent_listing(request, id):
 
 
 @login_required
-def delete_equipment(request, id):
-    Equipment.objects.filter(id=id).delete()
-    return redirect(display_equipment)
-
-
-@login_required
+@__profile_check
 def delete_equipment(request, id):
     equipment = Equipment.objects.filter(id=id)
     equipment_listings = EquipmentListing.objects.filter(equipment_id=id)
@@ -406,6 +424,7 @@ def delete_equipment(request, id):
 
 
 @login_required
+@__profile_check
 def get_photo(request, id):
     equip = get_object_or_404(Equipment, id=id)
 
