@@ -4,6 +4,7 @@ import pytz
 
 register = template.Library()
 
+
 @register.simple_tag
 def overlap_generator(equipment, start_date, end_date):
     '''
@@ -13,7 +14,8 @@ def overlap_generator(equipment, start_date, end_date):
     '''
     overlap_start = ""
     overlap_end = ""
-    intervals = [(obj.start_date, obj.end_date) for obj in equipment.equipment_listings.all()]
+    queryset = equipment.equipment_listings.all()
+    intervals = [(obj.start_date, obj.end_date) for obj in queryset]
     intervals = sorted(intervals, key=lambda x: x[0])
     if start_date and end_date:
         start_date = timezone.datetime.strptime(start_date, '%Y-%m-%d')
@@ -24,7 +26,7 @@ def overlap_generator(equipment, start_date, end_date):
             if start_int <= end_date and end_int >= start_date:
                 overlap_start = max(start_int, start_date)
                 overlap_end = min(end_int, end_date)
-                break;
+                break
     elif start_date:
         start_date = timezone.datetime.strptime(start_date, '%Y-%m-%d')
         start_date = pytz.utc.localize(start_date)
@@ -32,7 +34,7 @@ def overlap_generator(equipment, start_date, end_date):
             if end_int >= start_date and start_int <= start_date:
                 overlap_start = max(start_int, start_date)
                 overlap_end = end_int
-                break;
+                break
     elif end_date:
         end_date = timezone.datetime.strptime(end_date, '%Y-%m-%d')
         end_date = pytz.utc.localize(end_date)
@@ -40,4 +42,5 @@ def overlap_generator(equipment, start_date, end_date):
             if end_int >= end_date and start_int <= end_date:
                 overlap_start = start_int
                 overlap_end = min(end_int, end_date)
+                break
     return (overlap_start, overlap_end)
