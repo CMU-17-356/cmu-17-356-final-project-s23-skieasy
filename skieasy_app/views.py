@@ -245,7 +245,7 @@ def create_equipment(request):
 
     if (not form.is_valid()):
         return render(request, 'skieasy_app/create_equipment.html', context)
-    
+
     if (form.cleaned_data["picture"] == 'default.png'):
         return render(request, 'skieasy_app/create_equipment.html', context)
 
@@ -315,9 +315,6 @@ def update_equipment(request, id):
 
     if (not form.is_valid()):
         return render(request, 'skieasy_app/update_equipment.html', context)
-    
-    if (form.cleaned_data["picture"] == None):
-        return render(request, 'skieasy_app/create_equipment.html', context)
 
     equip.profile_id = Profile.objects.get(id=request.user.id)
     equip.title = form.cleaned_data["title"]
