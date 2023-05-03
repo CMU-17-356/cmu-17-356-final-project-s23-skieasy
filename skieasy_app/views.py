@@ -263,7 +263,8 @@ def create_equipment(request):
                           wear_status=form.cleaned_data["wear_status"],
                           equipment_type=form.cleaned_data["equipment_type"],
                           picture=form.cleaned_data["picture"],
-                          content_type=form.cleaned_data["picture"].content_type)
+                          content_type=form.cleaned_data
+                          ["picture"].content_type)
 
     new_equip.save()
 
@@ -311,23 +312,22 @@ def update_equipment(request, id):
 
     if (not form.is_valid()):
         return render(request, 'skieasy_app/update_equipment.html', context)
-    
 
-    equip.profile_id=Profile.objects.get(id=request.user.id)
-    equip.title=form.cleaned_data["title"]
-    equip.description=form.cleaned_data["description"]
-    equip.price=form.cleaned_data["price"]
-    equip.equipment_product_name=form.cleaned_data["equipment_product_name"]
-    equip.bindings_product_name=form.cleaned_data["bindings_product_name"]
-    equip.boots_product_name=form.cleaned_data["boots_product_name"]
-    equip.skill_level=form.cleaned_data["skill_level"]
-    equip.equipment_height=form.cleaned_data["equipment_height"]
-    equip.boot_size=form.cleaned_data["boot_size"]
-    equip.wear_status=form.cleaned_data["wear_status"]
-    equip.equipment_type=form.cleaned_data["equipment_type"]
-    equip.picture=form.cleaned_data["picture"]
-    equip.content_type=form.cleaned_data["picture"].content_type
-    
+    equip.profile_id = Profile.objects.get(id=request.user.id)
+    equip.title = form.cleaned_data["title"]
+    equip.description = form.cleaned_data["description"]
+    equip.price = form.cleaned_data["price"]
+    equip.equipment_product_name = form.cleaned_data["equipment_product_name"]
+    equip.bindings_product_name = form.cleaned_data["bindings_product_name"]
+    equip.boots_product_name = form.cleaned_data["boots_product_name"]
+    equip.skill_level = form.cleaned_data["skill_level"]
+    equip.equipment_height = form.cleaned_data["equipment_height"]
+    equip.boot_size = form.cleaned_data["boot_size"]
+    equip.wear_status = form.cleaned_data["wear_status"]
+    equip.equipment_type = form.cleaned_data["equipment_type"]
+    equip.picture = form.cleaned_data["picture"]
+    equip.content_type = form.cleaned_data["picture"].content_type
+
     equip.save()
 
     return redirect(equipment_details, id=id)
