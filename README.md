@@ -50,4 +50,4 @@ Users can:
 * Nikitha Rao
 
 
-### Don't miss the mountain with SkiEasy. Website coming soon!
+### Don't miss the mountain with SkiEasy. Checkout our [website](https://skieasy.fly.dev/)!
