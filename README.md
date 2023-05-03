@@ -51,3 +51,7 @@ Users can:
 
 
 ### Don't miss the mountain with SkiEasy. Checkout our [website](https://skieasy.fly.dev/)!
+
+
+## Pivots:
+* Pushed multiple images feature to Post MVP, therefore the EquipmentImages model is not used in MVP because a picture and content_type field was created in the Equipment model
