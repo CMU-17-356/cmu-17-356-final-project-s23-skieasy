@@ -344,7 +344,7 @@ def update_equipment(request, id):
 
     if (not form.is_valid() or not bool(request.FILES)):
         return render(request, 'skieasy_app/update_equipment.html', context)
-    
+
     equip.profile_id = Profile.objects.get(id=request.user.id)
     equip.title = form.cleaned_data["title"]
     equip.description = form.cleaned_data["description"]
