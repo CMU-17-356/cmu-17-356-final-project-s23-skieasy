@@ -1,3 +1,4 @@
+from django.db.models import Count
 from skieasy_app.models import EquipmentImage
 from skieasy_app.forms import ProfileForm, EquipmentListingForm, EquipmentForm
 from skieasy_app.models import Profile, Equipment, EquipmentListing
@@ -11,7 +12,6 @@ from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.template import loader
-from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
 
@@ -27,6 +27,15 @@ class HomeView(LoginRequiredMixin, FilterView):
     context_object_name = "listings"
     paginate_by = 12
     ordering = ['profile_id']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = (
+            queryset
+            .annotate(listing_count=Count('equipment_listings'))
+            .filter(listing_count__gt=0)
+        )
+        return queryset
 
 
 @login_required
