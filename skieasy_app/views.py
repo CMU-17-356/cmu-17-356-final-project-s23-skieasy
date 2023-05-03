@@ -41,7 +41,6 @@ class HomeView(LoginRequiredMixin, FilterView):
     paginate_by = 12
     ordering = ['profile_id']
 
-    @__profile_check
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = (
@@ -343,9 +342,9 @@ def update_equipment(request, id):
     form = EquipmentForm(request.POST, request.FILES, instance=equip)
     context['form'] = form
 
-    if (not form.is_valid()):
+    if (not form.is_valid() or not bool(request.FILES)):
         return render(request, 'skieasy_app/update_equipment.html', context)
-
+    
     equip.profile_id = Profile.objects.get(id=request.user.id)
     equip.title = form.cleaned_data["title"]
     equip.description = form.cleaned_data["description"]
