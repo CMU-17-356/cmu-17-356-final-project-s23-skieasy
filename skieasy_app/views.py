@@ -15,6 +15,7 @@ from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
 
+
 def __profile_check(action_function):
     def my_wrapper_function(request, *args, **kwargs):
         try:
@@ -23,7 +24,7 @@ def __profile_check(action_function):
                 return action_function(request, *args, **kwargs)
             else:
                 raise ValueError("Please Register")
-        except:
+        except Exception as e:
             return redirect(reverse('register'))
     return my_wrapper_function
 
