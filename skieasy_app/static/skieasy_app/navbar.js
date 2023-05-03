@@ -8,7 +8,7 @@ $(document).ready(function() {
 
   });
 
-  $("#dropdown-button").click(() => {
+  $("#dropdown-button,#dropdown-link").click(() => {
     $(".dropdown").toggleClass("is-active");
   });
 

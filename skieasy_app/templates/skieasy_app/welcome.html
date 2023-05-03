@@ -1,21 +1,44 @@
-<!doctype html>
+{% extends "skieasy_app/base.html" %}
 
-<html lang="en">
-<head>
-    <title>SkiEasy</title>
-	<meta charset="UTF-8">
-    {% load static %}
-	<link rel="stylesheet" href="{% static 'skieasy_app/welcome.css' %}" type="text/css">
-    <link rel="icon" type="image/favicon.ico" href="{% static 'skieasy_app/icon.png' %}">
-</head>
-<body>
-    <div id="title">
-        <h1>Welcome to SkiEasy</h1>
-        <subtitle>Ski anytime, anywhere without having to bring your own gear!</subtitle><br/>
-        <img src="../../static/skieasy_app/icon.png" width="33%"/><br/>
-        <h3><a href="{% url 'register' %}">Register</a></h3>
-        <h3><a href="{% url 'home' %}">Login</a></h3>
+{% block content %}
 
+{% load static %}
+<link rel="stylesheet" href="{% static 'skieasy_app/welcome.css' %}" type="text/css">
+
+<section class="hero is-info is-fullheight">
+
+  <div class="hero-body">
+    <div class="container has-text-centered">
+        <div style="padding-bottom: 1.5rem;">
+            <i class="fas fa-5x fa-mountain"></i>
+            <i class="fas fa-5x fa-snowflake"></i>
+            <i class="fas fa-5x fa-skiing"></i>
+        </div>
+        <p class="title">
+            Welcome to SkiEasy
+        </p>
+        <p class="subtitle">
+            Ski anytime, anywhere without having to bring your own gear!
+        </p>
+        <div class="field is-grouped is-align-items-center is-justify-content-center">
+            <p class="control">
+                <a href="{% url 'register' %}">
+                    <button class="button is-rounded is-link">
+                    Register
+                    </button>
+                </a>
+            </p>
+            <p class="control">
+                <a href="{% url 'home' %}">
+                    <button class="button is-rounded">
+                    Login
+                    </button>
+                </a>
+            </p>
+        </div>
     </div>
-</body>
-</html>
+  </div>
+
+</section>
+
+{% endblock %}

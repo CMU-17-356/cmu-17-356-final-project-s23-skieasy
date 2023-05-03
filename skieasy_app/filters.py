@@ -1,5 +1,5 @@
 import django_filters
-from django.db.models import Q, Case, When, Value, CharField
+from django.db.models import Q, Case, When, Value, CharField, DateField
 
 
 from .models import Equipment
@@ -85,11 +85,11 @@ class EquipmentFilter(django_filters.FilterSet):
         '''
         Pass start-end_date params to request equipment that has
         availability within a range of dates. This requires a cross-table
-        join with listings to check for overlapping intervals.
+        join with listings to check for overlapping intervals. Only
+        returns equipment whose listings have some overlap with the
+        request.
         Ex:
         <url>?start_date=2023-10-24&end_date=2023-12-24
-
-        TODO => Will eventually need to also account for reservations
         '''
 
         queryset = super().filter_queryset(queryset)
@@ -101,29 +101,14 @@ class EquipmentFilter(django_filters.FilterSet):
                 Q(equipment_listings__start_date__lte=end_date) &
                 Q(equipment_listings__end_date__gte=start_date)
             )
-            queryset = queryset.annotate(
-                overlap_start_date=Case(
-                    When(
-                        equipment_listings__start_date__gte=start_date,
-                        equipment_listings__start_date__lte=end_date,
-                        then='equipment_listings__start_date'
-                    ),
-                    When(
-                        equipment_listings__start_date__lte=start_date,
-                        then=Value(start_date)
-                    ),
-                    output_field=CharField()
-                ),
-                overlap_end_date=Case(
-                    When(
-                        equipment_listings__end_date__gte=start_date,
-                        then=Value(end_date)
-                    ),
-                    When(
-                        equipment_listings__end_date__lte=end_date,
-                        then='equipment_listings__end_date'
-                    ),
-                    output_field=CharField()
-                )
+        elif start_date:
+            queryset = queryset.filter(
+                Q(equipment_listings__end_date__gte=start_date) &
+                Q(equipment_listings__start_date__lte=start_date)
+            )
+        elif end_date:
+            queryset = queryset.filter(
+                Q(equipment_listings__start_date__lte=end_date) &
+                Q(equipment_listings__end_date__gte=end_date)
             )
         return queryset
