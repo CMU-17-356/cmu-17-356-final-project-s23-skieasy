@@ -16,7 +16,8 @@
     <link rel="icon" type="image/favicon.ico" href="{% static 'skieasy_app/icon.png' %}">
 </head>
 <body>
-
+    
+    {% block nav %}
     <nav class="navbar is-spaced has-shadow" role="navigation" aria-label="main navigation">
 
         <div class="navbar-brand">
@@ -374,6 +375,8 @@
             </div>
         </div>
     </nav>
+
+    {% endblock %}
 
     <div class="section content">
         {% block content %}
