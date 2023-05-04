@@ -148,7 +148,7 @@ def register(request):
                           boot_size=form.cleaned_data['boot_size'],
                           user_type=form.cleaned_data['user_type'])
     new_profile.save()
-    return render(request, 'skieasy_app/home.html', {})
+    return redirect(reverse('home'))
 
 
 @login_required
