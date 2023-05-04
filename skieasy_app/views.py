@@ -20,10 +20,6 @@ def __profile_check(action_function):
     def my_wrapper_function(request, *args, **kwargs):
         try:
             user = User.objects.get(id=request.user.id)
-            print("USER: ")
-            print(user)
-            print("PROFILE: ")
-            print(Profile.objects.filter(user=user))
             if (Profile.objects.filter(user=user).exists()):
                 return action_function(request, *args, **kwargs)
             else:
@@ -421,7 +417,7 @@ def rent_listing(request, id):
 @login_required
 @__profile_check
 def delete_equipment(request, id):
-    equipment = Equipment.objects.filter(id=id)
+    equipment = Equipment.objects.get(id=id)
     if (equipment.profile_id.user != request.user):
         return redirect(display_equipment)
     equipment_listings = EquipmentListing.objects.filter(equipment_id=id)
